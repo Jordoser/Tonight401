@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.parse.Parse;
 import com.parse.ParseCrashReporting;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 public class ParseApplication extends Application {
@@ -16,10 +17,9 @@ public class ParseApplication extends Application {
     ParseCrashReporting.enable(this);
 
     // Enable Local Datastore.
-    Parse.enableLocalDatastore(this);
+      Parse.enableLocalDatastore(this);
 
-    // Add your initialization code here
-    Parse.initialize(this, "CbiQV5jXE0OQaWM6NI9gEWKwMh30pjkTpPhhmZ7R", "AuECXeGSmupEsy4hY0C5hZA2BYkpw2gOzrCapm06");
+      Parse.initialize(this, "WmiRuMFBYBvbiSfYhngCJl4dqy2zs1FkwFC5CnRh", "Ezo6Lc63m5XNo6eRA3ZmQsiaV6cJPJMrkfMXb7Fz");
 
 
     ParseUser.enableAutomaticUser();
@@ -28,5 +28,8 @@ public class ParseApplication extends Application {
     // Optionally enable public read access.
     // defaultACL.setPublicReadAccess(true);
     //ParseACL.setDefaultACL(defaultACL, true);
+     /* ParseObject testObject = new ParseObject("TestObject");
+      testObject.put("foo", "Tarek");
+      testObject.saveInBackground();*/
   }
 }

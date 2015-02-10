@@ -1,20 +1,29 @@
 package com.example.tonight;
 
 import android.app.Activity;
+import android.app.Application;
+import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.parse.Parse;
+
+import java.util.ArrayList;
 
 //Look at https://developer.android.com/training/implementing-navigation/nav-drawer.html
 
 public class MainActivity extends Activity {
-    private String[] mVenueNames;
+    //private String[] mVenueNames;
+    private ArrayList<String> mVenueNames;
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -23,12 +32,13 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        VenueModel.getVenues();
+        mVenueNames = new ArrayList<String>(VenueModel.returnList());
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
         //For testing
-        mVenueNames = new String[] {"Venue1", "Bar2", "Pub3"};
-
+         //mVenueNames=new String[] {"Venue1", "Bar2", "Pub3"};
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
                 R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close) {
             public void onDrawerClosed(View view) {
