@@ -28,6 +28,7 @@ public class SplashScreen extends ActionBarActivity {
                                   }, SPLASH_DISPLAY_LENGTH);
 
         //Do stuff during the wait here
+        VenueModel.getVenues();
     }
 
 

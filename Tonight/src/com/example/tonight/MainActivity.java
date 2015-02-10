@@ -32,7 +32,7 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        VenueModel.getVenues();
+       
         mVenueNames = new ArrayList<String>(VenueModel.returnList());
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
