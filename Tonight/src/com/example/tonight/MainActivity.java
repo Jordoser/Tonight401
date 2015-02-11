@@ -2,7 +2,6 @@ package com.example.tonight;
 
 import android.app.Activity;
 import android.app.Application;
-import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -13,9 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.parse.Parse;
 
 import java.util.ArrayList;
 
@@ -33,7 +30,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
        
-        mVenueNames = new ArrayList<String>(VenueModel.returnList());
+        mVenueNames = new ArrayList<String>(ParseOperations.returnList());
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
