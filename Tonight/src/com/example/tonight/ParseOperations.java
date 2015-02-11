@@ -17,6 +17,7 @@ public class ParseOperations extends ParseObject {
     public static ArrayList<String> listVenues= new ArrayList<String>();
 
     public static void getVenues(){
+        listVenues = new ArrayList<String>();
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Venue");
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> venueList, ParseException e) {
