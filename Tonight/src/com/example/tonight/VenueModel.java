@@ -34,4 +34,12 @@ public class VenueModel extends ParseObject {
         this.name = name;
     }
 
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String name) {
+        this.area = name;
+    }
+
 }
