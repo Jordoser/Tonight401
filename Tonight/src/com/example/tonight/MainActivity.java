@@ -1,12 +1,14 @@
 package com.example.tonight;
 
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -17,6 +19,7 @@ import android.app.ActionBar;
 
 import com.example.tonight.adapter.TabsPagerAdapter;
 
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 
 //Look at https://developer.android.com/training/implementing-navigation/nav-drawer.html
@@ -34,6 +37,7 @@ public class MainActivity extends FragmentActivity implements
     private ViewPager viewPager;
     private ActionBar actionBar;
     private TabsPagerAdapter mAdapter;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -127,7 +131,9 @@ public class MainActivity extends FragmentActivity implements
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
-
+        else if(item.getItemId()==(R.id.userName)){
+            ScreenName.alert(this);
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -148,4 +154,11 @@ public class MainActivity extends FragmentActivity implements
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu items for use in the action bar
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 }
