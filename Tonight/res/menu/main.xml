@@ -10,7 +10,7 @@
         app:showAsAction="never"/>
 
     <item android:id="@+id/userName"
-        android:icon="@drawable/ic_menu_edit"
+        android:icon="@drawable/ic_drawer"
         android:title="@string/userName"
         android:showAsAction="ifRoom" />
 
