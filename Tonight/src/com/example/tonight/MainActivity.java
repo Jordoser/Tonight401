@@ -30,7 +30,7 @@ public class MainActivity extends FragmentActivity implements
     private ActionBarDrawerToggle mDrawerToggle;
 
     // Tab titles
-    private String[] tabs = { "All", "Downtown", "South", "West,", "Whyte" };
+    private String[] tabs = { "All", "Downtown", "South", "West", "Whyte" };
     private ViewPager viewPager;
     private ActionBar actionBar;
     private TabsPagerAdapter mAdapter;
