@@ -8,4 +8,14 @@
     <string name="drawer_close">Close</string>
     <string name="userName" >User Name</string>
 
+    <!--Week Day Array -->
+    <string-array name="weekday_array">
+        <item>Sunday</item>
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+    </string-array>
 </resources>

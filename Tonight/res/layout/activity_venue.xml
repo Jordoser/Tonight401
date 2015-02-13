@@ -1,6 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="0.3"
+        android:clickable="true" >
+
+        <ImageView
+            android:src="@drawable/ic_launcher"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/venueLogo" />
+
+        <TextView
+            android:id = "@+id/venueName"
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="VENUE NAME"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/venueLogo"
+            android:layout_toEndOf="@+id/venueLogo" />
+        <TextView
+            android:id = "@+id/venueHours"
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="OPERATING HOURS"
+            android:layout_below="@+id/venueName"
+            android:layout_toRightOf="@+id/venueLogo"
+            android:layout_toEndOf="@+id/venueLogo"/>
+        <TextView
+            android:id = "@+id/venueInfo"
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="VENUE INFORMATION"
+            android:layout_below="@+id/venueHours"
+            android:layout_toRightOf="@+id/venueLogo"
+            android:layout_toEndOf="@+id/venueLogo" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/spinner_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="0.10" >
+
+        <Spinner
+            android:id="@+id/weekday_spinner"
+            android:layout_width="100dp"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <!-- Divider -->
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="3dp"
+        android:background="@android:color/darker_gray"/>
+    
+    <TextView
+        android:textSize="20dp"
+        android:layout_weight="0.03"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Recent Feed"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/weekday_spinner"
+        android:layout_alignEnd="@+id/weekday_spinner" />
+    
+    <!-- Divider -->
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="3dp"
+        android:background="@android:color/darker_gray"/>
+
+    <LinearLayout
+        android:background="#00b159"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.57"
+        android:textColor="#000000" >
+
+        <ListView
+            android:background="#00b158"
+            android:id="@+id/venueCommentList"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:divider="@android:color/black"
+            android:dividerHeight="2sp"
+            android:textColor="#000000" >
+        </ListView>
+    </LinearLayout>
 
 </LinearLayout>
