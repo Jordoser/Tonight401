@@ -24,12 +24,10 @@ public class DrawerItemClickListener extends Activity implements ListView.OnItem
         Bundle args = new Bundle();
         args.putInt(VenueFragment.ARG_VENUE_NUMBER, position);
         fragment.setArguments(args);
-
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.content_frame, fragment)
                 .commit();
-
         */
         mDrawerList.setItemChecked(position, true);
         //setTitle(mVenueNames[position]);

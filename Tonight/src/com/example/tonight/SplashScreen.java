@@ -19,18 +19,20 @@ public class SplashScreen extends ActionBarActivity {
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         getActionBar().hide();
         setContentView(R.layout.activity_splash);
+        ParseOperations.getVenues();
         new Handler().postDelayed(new Runnable() {
                                       @Override
                                       public void run() {
                                           //Do stuff after the SPLASH_DISPLAY LENGTH here
-                                          Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                          startActivity(intent);
+
+                                          Intent main = new Intent(getApplicationContext(), MainActivity.class);
+                                          startActivity(main);
+
                                           finish();
                                       }
                                   }, SPLASH_DISPLAY_LENGTH);
 
         //Do stuff during the wait here
-        ParseOperations.getVenues();
     }
 
 
