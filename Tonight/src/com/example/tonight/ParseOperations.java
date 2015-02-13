@@ -20,11 +20,13 @@ public class ParseOperations extends ParseObject {
     public static void getVenues(){
         listVenues = new ArrayList<ParseObject>();
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Venue");
+        query.orderByAscending("barName");
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> venueList, ParseException e) {
                 if (e == null) {
                     Log.d("score", "Retrieved " + venueList.size() + " bars");
                     for (ParseObject venue:venueList) {
+                        System.out.println(venue.get("barName").toString());
                         listVenues.add(venue);
                         System.out.println("Added Venue");
                     }
