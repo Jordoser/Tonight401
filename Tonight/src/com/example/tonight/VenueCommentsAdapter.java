@@ -5,6 +5,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.parse.ParseFile;
+import com.parse.ParseImageView;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
@@ -34,6 +36,15 @@ public class VenueCommentsAdapter extends ParseQueryAdapter<ParseObject> {
         }
 
         super.getItemView(object, v, parent);
+
+        // Add and download the image
+        ParseImageView commentImage = (ParseImageView) v.findViewById(R.id.comment_image);
+        ParseFile imageFile = object.getParseFile("photo");
+        if (imageFile != null) {
+            commentImage.setParseFile(imageFile);
+            commentImage.loadInBackground();
+        }
+
 
         TextView userTextView = (TextView) v.findViewById(R.id.user);
         userTextView.setText(object.getString("user"));
