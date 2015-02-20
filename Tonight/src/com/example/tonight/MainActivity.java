@@ -30,6 +30,7 @@ public class MainActivity extends FragmentActivity implements
         ActionBar.TabListener {
     //private String[] mVenueNames;
     private ArrayList<String> mVenueNames;
+    private ArrayList<String> mVenueIds;
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -58,6 +59,7 @@ public class MainActivity extends FragmentActivity implements
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
         mVenueNames = new ArrayList<String>(VenueListController.returnVenues());
+        mVenueIds = new ArrayList<String>(VenueListController.returnVenueIds());
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
@@ -117,6 +119,8 @@ public class MainActivity extends FragmentActivity implements
         System.out.println("Updated Drawer");
         mVenueNames.clear();
         mVenueNames.addAll(VenueListController.returnVenues());
+        mVenueIds.clear();
+        mVenueIds.addAll(VenueListController.returnVenueIds());
         mListAdapter.notifyDataSetChanged();
     }
 
@@ -124,6 +128,8 @@ public class MainActivity extends FragmentActivity implements
         System.out.println("Updated Drawer from Area");
         mVenueNames.clear();
         mVenueNames.addAll(VenueListController.returnVenues(area));
+        mVenueIds.clear();
+        mVenueIds.addAll(VenueListController.returnVenueIds(area));
         mListAdapter.notifyDataSetChanged();
     }
 
@@ -132,6 +138,7 @@ public class MainActivity extends FragmentActivity implements
         @Override
         public void onItemClick(AdapterView parent, View view, int position, long id) {
             Intent intent = new Intent(MainActivity.this, VenueActivity.class);
+            intent.putExtra("venue_id", mVenueIds.get(position));
             startActivity(intent);
         }
     }

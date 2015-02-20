@@ -39,4 +39,22 @@ public class VenueListController {
         }
         return venues;
     }
+
+    public static ArrayList<String> returnVenueIds() {
+        ArrayList<String> venueIds = new ArrayList<String>();
+        for(ParseObject venue:venueList){
+            venueIds.add(venue.getObjectId());
+        }
+        return venueIds;
+    }
+
+    public static ArrayList<String> returnVenueIds(String area) {
+        ArrayList<String> venueIds = new ArrayList<String>();
+        for(ParseObject venue:venueList){
+            if(venue.get("Area").equals(area)) {
+                venueIds.add(venue.getObjectId());
+            }
+        }
+        return venueIds;
+    }
 }
