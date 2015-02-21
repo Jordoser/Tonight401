@@ -7,18 +7,19 @@ import java.util.ArrayList;
  */
 public class VenueHolder {
 
-    public static String barName= new String();
-    public static ArrayList<String> info= new ArrayList<String>();
-    public static ArrayList<String> listHours= new ArrayList<String>();
-    public static ArrayList<String> listSpecials= new ArrayList<String>();
+    public static String barID = new String();
+    public static String barName = new String();
+    public static ArrayList<String> info = new ArrayList<String>();
+    public static ArrayList<String> listHours = new ArrayList<String>();
+    public static ArrayList<String> listSpecials = new ArrayList<String>();
     public static byte[] barPhoto;
 
-    public static byte[] getBarPhoto() {
-        return barPhoto;
+    public static String getBarID() {
+        return barID;
     }
 
-    public static void setBarPhoto(byte[] barPhoto) {
-        VenueHolder.barPhoto = barPhoto;
+    public static void setBarID(String barID) {
+        VenueHolder.barID = barID;
     }
 
     public static String getBarName() {
@@ -29,14 +30,6 @@ public class VenueHolder {
         VenueHolder.barName = barName;
     }
 
-    public static ArrayList<String> getListHours() {
-        return listHours;
-    }
-
-    public static void setListHours(ArrayList<String> listHours) {
-        VenueHolder.listHours = listHours;
-    }
-
     public static ArrayList<String> getInfo() {
         return info;
     }
@@ -45,11 +38,27 @@ public class VenueHolder {
         VenueHolder.info = info;
     }
 
+    public static ArrayList<String> getListHours() {
+        return listHours;
+    }
+
+    public static void setListHours(ArrayList<String> listHours) {
+        VenueHolder.listHours = listHours;
+    }
+
     public static ArrayList<String> getListSpecials() {
         return listSpecials;
     }
 
     public static void setListSpecials(ArrayList<String> listSpecials) {
         VenueHolder.listSpecials = listSpecials;
+    }
+
+    public static byte[] getBarPhoto() {
+        return barPhoto;
+    }
+
+    public static void setBarPhoto(byte[] barPhoto) {
+        VenueHolder.barPhoto = barPhoto;
     }
 }

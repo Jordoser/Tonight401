@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -137,9 +138,16 @@ public class MainActivity extends FragmentActivity implements
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView parent, View view, int position, long id) {
-            Intent intent = new Intent(MainActivity.this, VenueActivity.class);
-            intent.putExtra("venue_id", mVenueIds.get(position));
-            startActivity(intent);
+            ParseOperations.getName(mVenueIds.get(position));
+
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    Intent intent = new Intent(MainActivity.this, VenueActivity.class);
+                    startActivity(intent);
+                }
+            }, 500);
+
         }
     }
 

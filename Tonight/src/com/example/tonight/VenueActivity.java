@@ -11,10 +11,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -43,8 +47,14 @@ public class VenueActivity extends Activity {
         getActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_venue);
 
+
+        TextView barName = (TextView)findViewById(R.id.venueName);
+        barName.setText(VenueHolder.getBarName());
         Intent intent = getIntent();
         String venue_id = intent.getStringExtra("venue_id");
+
+
+
 
         //Code For Weekday Spinner
         spinner = (Spinner) findViewById(R.id.weekday_spinner);
