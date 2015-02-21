@@ -138,12 +138,14 @@ public class MainActivity extends FragmentActivity implements
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView parent, View view, int position, long id) {
+            final int pos = position;
             ParseOperations.getName(mVenueIds.get(position));
 
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 public void run() {
                     Intent intent = new Intent(MainActivity.this, VenueActivity.class);
+                    intent.putExtra("venue_id", mVenueIds.get(pos));
                     startActivity(intent);
                 }
             }, 500);
