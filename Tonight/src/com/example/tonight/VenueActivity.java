@@ -77,7 +77,28 @@ public class VenueActivity extends Activity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setSelection(day);
-        //spinner.setOnItemSelectedListener(new SpinnerListener());
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            /**
+             * Called when a new item is selected (in the Spinner)
+             */
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int pos, long id) {
+                // An spinnerItem was selected. You can retrieve the selected item using
+                // parent.getItemAtPosition(pos)
+                String test = Integer.toString(pos);
+                TextView venueHours = (TextView)findViewById(R.id.venueHours);
+                venueHours.setText("Hours: "+VenueHolder.getListHours().get(pos));
+                view.invalidate();
+
+
+
+            }
+
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Do nothing, just another required interface callback
+            }
+
+        }); // (optional)
         
         //Comment ListView
         commentList = (ListView) findViewById(R.id.venueCommentList);
