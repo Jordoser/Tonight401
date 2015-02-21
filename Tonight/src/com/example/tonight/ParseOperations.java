@@ -11,6 +11,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +21,7 @@ import java.util.List;
 public class ParseOperations extends ParseObject {
     public static ArrayList<ParseObject> listVenues= new ArrayList<ParseObject>();
     public static String venue_name = new String();
+    public static String venueInfo = new String();
     public static ArrayList<String> hoursList= new ArrayList<String>();
 
     public static void getVenues(){
@@ -47,6 +49,7 @@ public class ParseOperations extends ParseObject {
     public static void getName(String id) {
         venue_name = new String();
         hoursList= new ArrayList<String>();
+        venueInfo = new String();
         VenueHolder.setBarID(id);
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Venue");
         query.whereEqualTo("objectId", id);
@@ -58,6 +61,10 @@ public class ParseOperations extends ParseObject {
                     for (ParseObject venue:venueList2) {
                         System.out.println(venue.get("barName").toString());
                         venue_name = venue.get("barName").toString();
+
+                        if(venue.get("Info") != null) {
+                            venueInfo = venue.get("Info").toString();
+                        }else{venueInfo = "No Info";}
                         if(venue.get("MonHours") != null) {
                             hoursList.add(venue.get("MonHours").toString());
                         }else{hoursList.add("Closed");}
@@ -82,6 +89,7 @@ public class ParseOperations extends ParseObject {
                     }
                     VenueHolder.setBarName(venue_name);
                     VenueHolder.setListHours(hoursList);
+                    VenueHolder.setInfo(venueInfo);
                 } else {
                     Log.d("score", "Error: " + e.getMessage());
                     //listVenues.add("Error");

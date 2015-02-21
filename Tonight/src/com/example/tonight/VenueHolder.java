@@ -9,7 +9,7 @@ public class VenueHolder {
 
     public static String barID = new String();
     public static String barName = new String();
-    public static ArrayList<String> info = new ArrayList<String>();
+    public static String info = new String();
     public static ArrayList<String> listHours = new ArrayList<String>();
     public static ArrayList<String> listSpecials = new ArrayList<String>();
     public static byte[] barPhoto;
@@ -30,11 +30,11 @@ public class VenueHolder {
         VenueHolder.barName = barName;
     }
 
-    public static ArrayList<String> getInfo() {
+    public static String getInfo() {
         return info;
     }
 
-    public static void setInfo(ArrayList<String> info) {
+    public static void setInfo(String info) {
         VenueHolder.info = info;
     }
 

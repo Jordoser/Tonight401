@@ -56,6 +56,9 @@ public class VenueActivity extends Activity {
         TextView venueHours = (TextView)findViewById(R.id.venueHours);
         venueHours.setText("Hours: "+VenueHolder.getListHours().get(0));
 
+        TextView venueInfo = (TextView)findViewById(R.id.venueInfo);
+        venueInfo.setText(VenueHolder.getInfo());
+
 
 
 
