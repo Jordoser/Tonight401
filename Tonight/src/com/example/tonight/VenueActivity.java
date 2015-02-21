@@ -21,6 +21,7 @@ import com.parse.ParseQueryAdapter;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Created by junker4ce on 15-02-12.
@@ -44,6 +45,10 @@ public class VenueActivity extends Activity {
     
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
+
         getActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_venue);
 
@@ -54,10 +59,12 @@ public class VenueActivity extends Activity {
         String venue_id = intent.getStringExtra("venue_id");
 
         TextView venueHours = (TextView)findViewById(R.id.venueHours);
-        venueHours.setText("Hours: "+VenueHolder.getListHours().get(0));
+        venueHours.setText("Hours: "+VenueHolder.getListHours().get(day));
 
         TextView venueInfo = (TextView)findViewById(R.id.venueInfo);
         venueInfo.setText(VenueHolder.getInfo());
+
+
 
 
 
@@ -68,7 +75,8 @@ public class VenueActivity extends Activity {
                 R.array.weekday_array, android.R.layout.simple_spinner_item);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //spinner.setAdapter(adapter);
+        spinner.setAdapter(adapter);
+        spinner.setSelection(day);
         //spinner.setOnItemSelectedListener(new SpinnerListener());
         
         //Comment ListView

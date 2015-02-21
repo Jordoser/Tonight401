@@ -65,6 +65,9 @@ public class ParseOperations extends ParseObject {
                         if(venue.get("Info") != null) {
                             venueInfo = venue.get("Info").toString();
                         }else{venueInfo = "No Info";}
+                        if(venue.get("SunHours") != null) {
+                            hoursList.add(venue.get("SunHours").toString());
+                        }else{hoursList.add("Closed");}
                         if(venue.get("MonHours") != null) {
                             hoursList.add(venue.get("MonHours").toString());
                         }else{hoursList.add("Closed");}
@@ -83,9 +86,7 @@ public class ParseOperations extends ParseObject {
                         if(venue.get("SatHours")!=null) {
                             hoursList.add(venue.get("SatHours").toString());
                         }else{hoursList.add("Closed");}
-                        if(venue.get("SunHours") != null) {
-                            hoursList.add(venue.get("SunHours").toString());
-                        }else{hoursList.add("Closed");}
+
                     }
                     VenueHolder.setBarName(venue_name);
                     VenueHolder.setListHours(hoursList);

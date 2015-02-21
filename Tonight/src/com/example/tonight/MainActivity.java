@@ -148,7 +148,7 @@ public class MainActivity extends FragmentActivity implements
                     intent.putExtra("venue_id", mVenueIds.get(pos));
                     startActivity(intent);
                 }
-            }, 500);
+            }, 750);
 
         }
     }

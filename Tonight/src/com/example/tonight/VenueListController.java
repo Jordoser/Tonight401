@@ -23,9 +23,11 @@ public class VenueListController {
     public static ArrayList<String> returnVenues() {
         //returns the list of all venues
         ArrayList<String> venues = new ArrayList<String>();
-        for(ParseObject venue:venueList){
-            venues.add(venue.get("barName").toString());
-        }
+        if( venueList != null) {
+            for (ParseObject venue : venueList) {
+                venues.add(venue.get("barName").toString());
+            }
+        }else{venues.add("error");}
         return venues;
     }
 
