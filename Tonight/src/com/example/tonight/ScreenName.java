@@ -49,7 +49,7 @@ public class ScreenName {
         AlertDialog.Builder alert = new AlertDialog.Builder(context);
 
         alert.setTitle("Current Name: "+name);
-        alert.setMessage("Change Name:");
+        alert.setMessage("Change Name: ");
 
         final EditText input = new EditText(context);
         alert.setView(input);
