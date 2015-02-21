@@ -46,11 +46,10 @@ public class ScreenName {
 
     public static void alert(final Context context){
         load(context);
-        context.deleteFile(filename);
         AlertDialog.Builder alert = new AlertDialog.Builder(context);
 
         alert.setTitle("Current Name: "+name);
-        alert.setMessage("Change Name");
+        alert.setMessage("Change Name:");
 
         final EditText input = new EditText(context);
         alert.setView(input);
