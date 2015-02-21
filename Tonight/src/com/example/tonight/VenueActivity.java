@@ -48,6 +48,7 @@ public class VenueActivity extends Activity {
 
         Calendar calendar = Calendar.getInstance();
         int day = calendar.get(Calendar.DAY_OF_WEEK);
+        day = day -1;
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_venue);
