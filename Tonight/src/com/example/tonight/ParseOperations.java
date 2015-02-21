@@ -20,6 +20,7 @@ import java.util.List;
 public class ParseOperations extends ParseObject {
     public static ArrayList<ParseObject> listVenues= new ArrayList<ParseObject>();
     public static String venue_name = new String();
+    public static ArrayList<String> hoursList= new ArrayList<String>();
 
     public static void getVenues(){
         listVenues = new ArrayList<ParseObject>();
@@ -45,6 +46,7 @@ public class ParseOperations extends ParseObject {
 
     public static void getName(String id) {
         venue_name = new String();
+        hoursList= new ArrayList<String>();
         VenueHolder.setBarID(id);
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Venue");
         query.whereEqualTo("objectId", id);
@@ -55,10 +57,31 @@ public class ParseOperations extends ParseObject {
                     Log.d("score", "Retrieved " + venueList2.size() + " bars");
                     for (ParseObject venue:venueList2) {
                         System.out.println(venue.get("barName").toString());
-                        System.out.println("Added Venue");
                         venue_name = venue.get("barName").toString();
+                        if(venue.get("MonHours") != null) {
+                            hoursList.add(venue.get("MonHours").toString());
+                        }else{hoursList.add("Closed");}
+                        if(venue.get("TuesHours") != null) {
+                            hoursList.add(venue.get("TuesHours").toString());
+                        }else{hoursList.add("Closed");}
+                        if(venue.get("WedHours") != null) {
+                            hoursList.add(venue.get("WedHours").toString());
+                        }else{hoursList.add("Closed");}
+                        if( venue.get("ThursHours") != null) {
+                            hoursList.add(venue.get("ThursHours").toString());
+                        }else{hoursList.add("Closed");}
+                        if(venue.get("FriHours")!=null) {
+                            hoursList.add(venue.get("FriHours").toString());
+                        }else{hoursList.add("Closed");}
+                        if(venue.get("SatHours")!=null) {
+                            hoursList.add(venue.get("SatHours").toString());
+                        }else{hoursList.add("Closed");}
+                        if(venue.get("SunHours") != null) {
+                            hoursList.add(venue.get("SunHours").toString());
+                        }else{hoursList.add("Closed");}
                     }
                     VenueHolder.setBarName(venue_name);
+                    VenueHolder.setListHours(hoursList);
                 } else {
                     Log.d("score", "Error: " + e.getMessage());
                     //listVenues.add("Error");

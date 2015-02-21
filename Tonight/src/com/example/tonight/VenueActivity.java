@@ -53,6 +53,9 @@ public class VenueActivity extends Activity {
         Intent intent = getIntent();
         String venue_id = intent.getStringExtra("venue_id");
 
+        TextView venueHours = (TextView)findViewById(R.id.venueHours);
+        venueHours.setText("Hours: "+VenueHolder.getListHours().get(0));
+
 
 
 
