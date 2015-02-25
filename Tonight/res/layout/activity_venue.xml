@@ -55,7 +55,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="center"
-        android:layout_weight="0.10" >
+        android:layout_weight="0.10">
 
         <Spinner
             android:id="@+id/weekday_spinner"
@@ -70,7 +70,7 @@
         android:layout_width="fill_parent"
         android:layout_height="3dp"
         android:background="@android:color/darker_gray"/>
-    
+
     <TextView
         android:textSize="20dp"
         android:layout_weight="0.03"
@@ -80,7 +80,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/weekday_spinner"
         android:layout_alignEnd="@+id/weekday_spinner" />
-    
+
     <!-- Divider -->
     <View
         android:layout_width="fill_parent"
@@ -88,6 +88,7 @@
         android:background="@android:color/darker_gray"/>
 
     <LinearLayout
+        android:id="@+id/commentsView"
         android:background="#00b159"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -103,6 +104,35 @@
             android:dividerHeight="2sp"
             android:textColor="#000000" >
         </ListView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llWriteCommentWall"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:orientation="horizontal"
+        android:background="#ffffff"
+        >
+
+        <EditText android:id="@+id/etEdittext"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:hint="Write a comment....   "
+            android:layout_marginLeft="2dip"
+            android:layout_marginRight="2dip"
+            android:lines="5"
+            android:minLines="1"
+            android:maxLines="10"
+            android:inputType="textMultiLine"
+            android:layout_weight="1"
+            />
+
+        <Button android:id="@+id/btButtonComments"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Post"
+            />
+
     </LinearLayout>
 
 </LinearLayout>

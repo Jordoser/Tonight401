@@ -10,6 +10,8 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
+import com.parse.ProgressCallback;
+import com.parse.SaveCallback;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -99,6 +101,26 @@ public class ParseOperations extends ParseObject {
         });
 }
 
+    public static void addComment(String barID, String comment, String username){
+        ParseObject commentObject = new ParseObject("Comments");
+        Boolean saved;
+        commentObject.put("barId", barID);
+        commentObject.put("comment", comment);
+        commentObject.put("user", username);
+        commentObject.put("likes", 0);
+        commentObject.put("dislikes", 0);
+        commentObject.saveInBackground(new SaveCallback() {
+            public void done(ParseException e) {
+                if(e == null){
+                    Log.d("score", "Comment was uploaded to Parse");
+                }
+                else {
+                    Log.d("score", "Error: " + e.getMessage());
+                    //listVenues.add("Error");
+                }
+            }
+        });
+    }
 
     //public static ArrayList<String> returnList(){
     //    Log.d("score", "Retrieved " + listVenues.size() + " Foster");

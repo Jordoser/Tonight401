@@ -29,10 +29,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity
-            android:name=".VenueActivity"
-            android:parentActivityName=".MainActivity"></activity>
-        <activity android:name=".SpinnerListener" />
+        <activity android:name=".VenueActivity"
+                  android:parentActivityName=".MainActivity"
+                  android:windowSoftInputMode="stateHidden">
+        </activity>
     </application>
 
 </manifest>
