@@ -107,31 +107,26 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/llWriteCommentWall"
+        android:id="@+id/WriteCommentWall"
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
         android:orientation="horizontal"
-        android:background="#ffffff"
-        >
+        android:background="#ffffff">
 
-        <EditText android:id="@+id/etEdittext"
+        <EditText android:id="@+id/postText"
             android:layout_height="wrap_content"
             android:layout_width="fill_parent"
-            android:hint="Write a comment....   "
+            android:hint="Write a post....   "
             android:layout_marginLeft="2dip"
             android:layout_marginRight="2dip"
-            android:lines="5"
-            android:minLines="1"
-            android:maxLines="10"
-            android:inputType="textMultiLine"
-            android:layout_weight="1"
-            />
+            android:inputType="textMultiLine|textAutoCorrect"
+            android:layout_weight="1"/>
 
-        <Button android:id="@+id/btButtonComments"
-            android:layout_height="wrap_content"
+        <Button android:id="@+id/postButton"
+            android:layout_height="fill_parent"
             android:layout_width="wrap_content"
             android:text="Post"
-            />
+            android:layout_gravity="bottom"/>
 
     </LinearLayout>
 

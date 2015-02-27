@@ -70,4 +70,8 @@ public class ScreenName {
         alert.show();
     }
 
+    public static String getName(){
+        return name;
+    }
+
 }

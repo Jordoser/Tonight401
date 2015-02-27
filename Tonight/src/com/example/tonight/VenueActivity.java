@@ -1,14 +1,18 @@
 package com.example.tonight;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -20,6 +24,11 @@ import com.parse.ParseQueryAdapter;
 
 import org.w3c.dom.Text;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -30,6 +39,10 @@ public class VenueActivity extends Activity {
     private ArrayList<CharSequence> spinnerArray;
     private Spinner spinner;
     private ListView commentList;
+    private String venue_id;
+    private String name;
+    private EditText eText;
+    private Button btn;
 
     //For Testing ListView
     /*
@@ -53,22 +66,42 @@ public class VenueActivity extends Activity {
         getActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_venue);
 
+        eText = (EditText) findViewById(R.id.postText);
+        btn = (Button) findViewById(R.id.postButton);
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String str = eText.getText().toString();
+                postMessage(str);
+            }
+        });
+
+        FileInputStream fis;
+        Context context = this;
+        try {
+            fis = context.openFileInput("screenName");
+            BufferedReader in = new BufferedReader(new InputStreamReader(
+                    fis));
+            name = in.readLine();
+            fis.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
 
         TextView barName = (TextView)findViewById(R.id.venueName);
         barName.setText(VenueHolder.getBarName());
         Intent intent = getIntent();
-        String venue_id = intent.getStringExtra("venue_id");
+        venue_id = intent.getStringExtra("venue_id");
 
         TextView venueHours = (TextView)findViewById(R.id.venueHours);
         venueHours.setText("Hours: "+VenueHolder.getListHours().get(day));
 
         TextView venueInfo = (TextView)findViewById(R.id.venueInfo);
         venueInfo.setText(VenueHolder.getInfo());
-
-
-
-
-
 
         //Code For Weekday Spinner
         spinner = (Spinner) findViewById(R.id.weekday_spinner);
@@ -91,8 +124,6 @@ public class VenueActivity extends Activity {
                 venueHours.setText("Hours: "+VenueHolder.getListHours().get(pos));
                 view.invalidate();
 
-
-
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -102,10 +133,7 @@ public class VenueActivity extends Activity {
         }); // (optional)
         
         //Comment ListView
-        commentList = (ListView) findViewById(R.id.venueCommentList);
-        VenueCommentsAdapter commentAdapter = new VenueCommentsAdapter(this, venue_id);
-        commentAdapter.setObjectsPerPage(10);
-        commentList.setAdapter(commentAdapter);
+        refreshComments();
 
         //commentList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, testValues));
     }
@@ -126,5 +154,23 @@ public class VenueActivity extends Activity {
         spinner.setSelection(position);
         String selState = (String) spinner.getSelectedItem();
         Log.e("Here", selState);
+    }
+
+    public void postMessage(String post){
+        String barId = VenueHolder.getBarID();
+        ParseOperations.addComment(barId, post, name);
+        if (getCurrentFocus() != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
+        eText.setText("");
+        refreshComments();
+    }
+
+    private void refreshComments(){
+        commentList = (ListView) findViewById(R.id.venueCommentList);
+        VenueCommentsAdapter commentAdapter = new VenueCommentsAdapter(this, venue_id);
+        commentAdapter.setObjectsPerPage(10);
+        commentList.setAdapter(commentAdapter);
     }
 }

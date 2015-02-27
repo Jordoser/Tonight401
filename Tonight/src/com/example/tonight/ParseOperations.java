@@ -105,7 +105,7 @@ public class ParseOperations extends ParseObject {
         ParseObject commentObject = new ParseObject("Comments");
         Boolean saved;
         commentObject.put("barId", barID);
-        commentObject.put("comment", comment);
+        commentObject.put("commentText", comment);
         commentObject.put("user", username);
         commentObject.put("likes", 0);
         commentObject.put("dislikes", 0);
