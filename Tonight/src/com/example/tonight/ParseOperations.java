@@ -109,17 +109,24 @@ public class ParseOperations extends ParseObject {
         commentObject.put("user", username);
         commentObject.put("likes", 0);
         commentObject.put("dislikes", 0);
-        commentObject.saveInBackground(new SaveCallback() {
-            public void done(ParseException e) {
-                if(e == null){
-                    Log.d("score", "Comment was uploaded to Parse");
-                }
-                else {
-                    Log.d("score", "Error: " + e.getMessage());
-                    //listVenues.add("Error");
-                }
-            }
-        });
+        //commentObject.saveInBackground(new SaveCallback() {
+        //   public void done(ParseException e) {
+        //        if(e == null){
+        //            Log.d("score", "Comment was uploaded to Parse");
+        //        }
+        //        else {
+        //            Log.d("score", "Error: " + e.getMessage());
+        //            //listVenues.add("Error");
+        //        }
+        //    }
+        //});
+        try {
+            commentObject.save();
+            Log.d("score", "Comment was uploaded to Parse");
+        } catch (ParseException e) {
+            Log.d("score", "Error: " + e.getMessage());
+            //e.printStackTrace();
+        }
     }
 
     //public static ArrayList<String> returnList(){
