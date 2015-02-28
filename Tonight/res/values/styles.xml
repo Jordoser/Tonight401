@@ -15,11 +15,25 @@
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        <item name="android:windowActionBar">true</item>
+        <item name="android:actionBarStyle">@style/ProjActionBar</item>
+        <item name="android:actionBarTabTextStyle">@style/ProjActionBar.TitleTextStyle</item>
+
     </style>
 
-    <style name="SplashTheme" parent="AppBaseTheme">
-        <item name="android:windowActionBar">false</item>
-        <item name="android:windowTitleSize">0dp</item>
+    <!-- ActionBar Style -->
+    <style name="ProjActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:background">@color/white</item>
+        <item name="android:backgroundStacked">@color/white</item>
+
     </style>
+
+    <style name="ProjActionBar.TitleTextStyle" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/pink</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+
+
 
 </resources>

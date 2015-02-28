@@ -4,6 +4,7 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -38,11 +39,14 @@ public class MainActivity extends FragmentActivity implements
     private ActionBarDrawerToggle mDrawerToggle;
     private ArrayAdapter<String> mListAdapter;
 
+
     // Tab titles
     private String[] tabs = { "All", "Downtown", "South", "West", "Whyte" };
     private ViewPager viewPager;
-    private ActionBar actionBar;
+    ActionBar actionBar;
     private TabsPagerAdapter mAdapter;
+
+
 
 
     @Override
