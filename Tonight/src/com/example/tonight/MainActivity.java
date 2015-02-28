@@ -40,6 +40,7 @@ public class MainActivity extends FragmentActivity implements
     private ArrayAdapter<String> mListAdapter;
 
 
+
     // Tab titles
     private String[] tabs = { "All", "Downtown", "South", "West", "Whyte" };
     private ViewPager viewPager;
@@ -69,6 +70,7 @@ public class MainActivity extends FragmentActivity implements
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
+        mDrawerList.setBackgroundColor(getResources().getColor(R.color.white));
         //For testing
         //mVenueNames=new String[] {"Venue1", "Bar2", "Pub3"};
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
