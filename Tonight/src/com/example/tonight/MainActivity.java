@@ -19,6 +19,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.support.v4.app.FragmentActivity;
 import android.app.ActionBar;
+import android.widget.TextView;
 
 import com.example.tonight.adapter.TabsPagerAdapter;
 
@@ -89,6 +90,7 @@ public class MainActivity extends FragmentActivity implements
 
         mListAdapter = new ArrayAdapter<String>(this, R.layout.drawer_list_item, mVenueNames);
         mDrawerList.setAdapter(mListAdapter);
+        mDrawerList.setSelector(R.drawable.list_selector);
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
         // Adding Tabs
@@ -139,6 +141,9 @@ public class MainActivity extends FragmentActivity implements
         @Override
         public void onItemClick(AdapterView parent, View view, int position, long id) {
             final int pos = position;
+            TextView tv = (TextView) view;
+            tv.setTextColor(getResources().getColor(R.color.white));
+
             ParseOperations.getName(mVenueIds.get(position));
 
             Handler handler = new Handler();

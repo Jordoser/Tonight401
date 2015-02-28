@@ -4,9 +4,6 @@
     <facet type="android" name="Android">
       <configuration />
     </facet>
-    <facet type="android" name="Android2">
-      <configuration />
-    </facet>
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
@@ -14,10 +11,10 @@
       <sourceFolder url="file://$MODULE_DIR$/gen" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
     </content>
-    <orderEntry type="jdk" jdkName="Android API 21 Platform" jdkType="Android SDK" />
+    <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="libs1" level="project" />
     <orderEntry type="library" name="libs" level="project" />
+    <orderEntry type="library" name="libs1" level="project" />
     <orderEntry type="module" module-name="appcompat_v7" />
   </component>
 </module>
