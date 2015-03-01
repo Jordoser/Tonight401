@@ -1,6 +1,8 @@
 package com.example.tonight.fragment;
 
+import com.example.tonight.MainCommentsAdapter;
 import com.example.tonight.R;
+import com.example.tonight.VenueActivity;
 
 import android.app.ListFragment;
 import android.os.Bundle;
@@ -18,8 +20,8 @@ import android.widget.Toast;
  */
 public class AllFragment extends Fragment {
     private ListView listview;
-    ArrayAdapter<String> adapter;
-    String[] countries = new String[] {
+    MainCommentsAdapter adapter;
+    /*String[] countries = new String[] {
             "India",
             "Pakistan",
             "Sri Lanka",
@@ -30,14 +32,15 @@ public class AllFragment extends Fragment {
             "North Korea",
             "South Korea",
             "Japan"
-    };
+    };*/
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_all, container, false);
-        listview =(ListView)rootView.findViewById(R.id.venueCommentListAll);
-        adapter = new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1,countries);
+        listview =(ListView) rootView.findViewById(R.id.venueCommentListAll);
+        adapter = new MainCommentsAdapter(this.getActivity().getApplicationContext());
+        adapter.setObjectsPerPage(10);
         listview.setAdapter(adapter);
 
         return rootView;

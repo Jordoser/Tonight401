@@ -43,18 +43,6 @@ public class VenueActivity extends Activity {
     private String name;
     private EditText eText;
     private Button btn;
-
-    //For Testing ListView
-    /*
-    String[] testValues = new String[]{"Android List View",
-            "Adapter implementation",
-            "Simple List View In Android",
-            "Create List View Android",
-            "Android Example",
-            "List View Source Code",
-            "List View Array Adapter",
-            "Android Example List View"
-    };*/
     
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

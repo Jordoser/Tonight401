@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+
+    <com.parse.ParseImageView
+        android:id="@+id/comment_image_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="15dip"
+        android:layout_marginRight="15dip"/>
+
+    <TextView
+        android:id="@+id/user_string_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/comment_image_main"
+        android:text="User: "/>
+
+    <TextView
+        android:id="@+id/user_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/user_string_main"
+        android:layout_below="@id/comment_image_main"/>
+
+    <TextView
+        android:id="@+id/post_time_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/user_main"/>
+
+    <TextView
+        android:id="@+id/comment_text_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/post_time_main"/>
+
+    <TextView
+        android:id="@+id/likes_string_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/comment_text_main"
+        android:text="Likes: "/>
+
+    <TextView
+        android:id="@+id/likes_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/comment_text_main"
+        android:layout_toRightOf="@id/likes_string_main" />
+
+    <TextView
+        android:id="@+id/bar_name_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>
