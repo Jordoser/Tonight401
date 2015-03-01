@@ -34,6 +34,7 @@
                   android:parentActivityName=".MainActivity"
                   android:windowSoftInputMode="stateHidden">
         </activity>
+        <activity android:name=".fragment.FragmentAdapter" />
     </application>
 
 </manifest>

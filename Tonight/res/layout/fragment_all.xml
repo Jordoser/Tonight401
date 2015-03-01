@@ -3,15 +3,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#880022" >
+    android:background="#dddddd" >
 
-    <TextView android:layout_width="fill_parent"
+    <TextView
+        android:id="@android:id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </TextView>
+    <ListView
+        android:id="@+id/venueCommentListAll"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Input Top Comments from ALL bars Here"
-        android:textColor="#ffffff"
-        android:textSize="20dp"
-        android:layout_centerInParent="true"/>
+        android:background="#dddddd"
+        android:divider="@android:color/black"
+        android:dividerHeight="2sp"
+        android:textColor="#000000" >
+    </ListView>
+
+
 
 
 </RelativeLayout>

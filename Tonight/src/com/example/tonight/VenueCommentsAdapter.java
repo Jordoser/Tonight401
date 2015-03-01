@@ -13,8 +13,6 @@ import com.parse.ParseQueryAdapter;
 
 public class VenueCommentsAdapter extends ParseQueryAdapter<ParseObject> {
 
-    public final String venue_id;
-
     public VenueCommentsAdapter(Context context, final String venue_id) {
         super(context, new ParseQueryAdapter.QueryFactory<ParseObject>() {
             @Override
@@ -26,7 +24,6 @@ public class VenueCommentsAdapter extends ParseQueryAdapter<ParseObject> {
            }
         });
 
-        this.venue_id = venue_id;
     }
 
     @Override
