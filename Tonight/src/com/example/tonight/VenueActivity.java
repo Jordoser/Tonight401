@@ -155,10 +155,12 @@ public class VenueActivity extends Activity {
         refreshComments();
     }
 
-    private void refreshComments(){
+    private void refreshComments() {
         commentList = (ListView) findViewById(R.id.venueCommentList);
         VenueCommentsAdapter commentAdapter = new VenueCommentsAdapter(this, venue_id);
+        commentAdapter.notifyDataSetChanged();
         commentAdapter.setObjectsPerPage(10);
         commentList.setAdapter(commentAdapter);
+       // commentAdapter.notifyDataSetChanged();
     }
 }

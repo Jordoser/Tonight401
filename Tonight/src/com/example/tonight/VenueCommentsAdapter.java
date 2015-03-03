@@ -3,6 +3,7 @@ package com.example.tonight;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.parse.ParseFile;
@@ -40,6 +41,9 @@ public class VenueCommentsAdapter extends ParseQueryAdapter<ParseObject> {
         if (imageFile != null) {
             commentImage.setParseFile(imageFile);
             commentImage.loadInBackground();
+        }
+        else{
+            commentImage.setImageResource(android.R.color.transparent);
         }
 
 

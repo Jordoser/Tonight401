@@ -1,15 +1,24 @@
 package com.example.tonight;
 
 import android.content.Context;
+
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+
+import com.parse.FindCallback;
 import com.parse.ParseFile;
 import com.parse.ParseImageView;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
+import com.parse.ParseUser;
+
+import java.text.ParseException;
+import java.util.List;
 
 public class MainCommentsAdapter extends ParseQueryAdapter<ParseObject>{
     public MainCommentsAdapter(Context context) {
@@ -18,6 +27,8 @@ public class MainCommentsAdapter extends ParseQueryAdapter<ParseObject>{
             public ParseQuery create() {
                 ParseQuery query = new ParseQuery("Comments");
                 query.orderByDescending("likes");
+
+
                 return query;
             }
         });
@@ -28,6 +39,9 @@ public class MainCommentsAdapter extends ParseQueryAdapter<ParseObject>{
         if (v == null) {
             v = View.inflate(getContext(), R.layout.comment_item_main, null);
         }
+        //else{
+          //  view=v;
+        //}
 
         super.getItemView(object, v, parent);
 
@@ -51,6 +65,7 @@ public class MainCommentsAdapter extends ParseQueryAdapter<ParseObject>{
         Integer totalLikes = object.getInt("likes") - object.getInt("dislikes");
         TextView likesTextView = (TextView) v.findViewById(R.id.likes_main);
         likesTextView.setText(totalLikes.toString());
+
 
         TextView barNameTextView = (TextView) v.findViewById(R.id.bar_name_main);
         barNameTextView.setText("@" + object.getString("barId"));
