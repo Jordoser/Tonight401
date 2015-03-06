@@ -68,7 +68,8 @@ public class MainCommentsAdapter extends ParseQueryAdapter<ParseObject>{
 
 
         TextView barNameTextView = (TextView) v.findViewById(R.id.bar_name_main);
-        barNameTextView.setText("@" + object.getString("barId"));
+        String venueName = VenueListController.getVenueName(object.getString("barId"));
+        barNameTextView.setText("@" + venueName);
 
         return v;
     }

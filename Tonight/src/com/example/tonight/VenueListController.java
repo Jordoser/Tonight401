@@ -59,4 +59,16 @@ public class VenueListController {
         }
         return venueIds;
     }
+
+    public static String getVenueName(String venueID){
+        String venueName = null;
+        for(ParseObject venue:venueList){
+            String test = "KevxXqR1N6";
+            if(venue.getObjectId().toString().equals(venueID)) {
+            //if(test.equals(venueID)) {
+                venueName = venue.get("barName").toString();
+            }
+        }
+        return venueName;
+    }
 }

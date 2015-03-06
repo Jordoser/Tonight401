@@ -39,16 +39,11 @@ public class MainActivity extends FragmentActivity implements
     private ActionBarDrawerToggle mDrawerToggle;
     private ArrayAdapter<String> mListAdapter;
 
-
-
     // Tab titles
     private String[] tabs = { "All", "Downtown", "South", "West", "Whyte" };
     private ViewPager viewPager;
     ActionBar actionBar;
     private TabsPagerAdapter mAdapter;
-
-
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -92,7 +87,6 @@ public class MainActivity extends FragmentActivity implements
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
-
 
         mListAdapter = new ArrayAdapter<String>(this, R.layout.drawer_list_item, mVenueNames);
         mDrawerList.setAdapter(mListAdapter);
