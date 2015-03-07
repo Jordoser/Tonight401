@@ -68,28 +68,39 @@ public class VenueCommentsAdapter extends ParseQueryAdapter<ParseObject> {
             if (diffWeeks > 1) {
                 diffString += "s";
             }
+            postTimeTextView.setText(diffString + " ago");
+
         } else if (diffDays > 0) {
             diffString = diffDays + " day";
             if (diffDays > 1) {
                 diffString += "s";
             }
+            postTimeTextView.setText(diffString + " ago");
+
         } else if (diffHours > 0) {
             diffString = diffHours + " hour";
             if (diffHours > 1) {
                 diffString += "s";
             }
+            postTimeTextView.setText(diffString + " ago");
+
         } else if (diffMinutes > 0) {
             diffString = diffMinutes + " minute";
             if (diffMinutes > 1) {
                 diffString += "s";
             }
+            postTimeTextView.setText(diffString + " ago");
+
         } else if (diffSeconds > 0) {
             diffString = diffSeconds + " second";
             if (diffSeconds > 1) {
                 diffString += "s";
             }
+            postTimeTextView.setText(diffString + " ago");
+
+        } else {
+            postTimeTextView.setText("Just now");
         }
-        postTimeTextView.setText(diffString + " ago");
 
         TextView commentTextView = (TextView) v.findViewById(R.id.comment_text);
         commentTextView.setText(object.getString("commentText"));
