@@ -8,27 +8,16 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.tonight.MainCommentsAdapter;
 import com.example.tonight.R;
+import com.example.tonight.VenueListController;
 
 /**
  * Created by junker4ce on 15-02-11.
  */
 public class SouthFragment extends Fragment {
     private ListView listview;
-    ArrayAdapter<String> adapter;
-    String[] cities = new String[] {
-            "Edmonton",
-            "London",
-            "Paris",
-            "New York",
-            "Ottawa",
-            "Toronto",
-            "Hong Kong",
-            "New Dehli",
-            "Old Dehli",
-            "Berlin",
-            "Vancouver",
-    };
+    MainCommentsAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,7 +25,8 @@ public class SouthFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_south, container, false);
         listview =(ListView)rootView.findViewById(R.id.venueCommentListSouth);
-        adapter = new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1,cities);
+        adapter = new MainCommentsAdapter(this.getActivity().getApplicationContext(), VenueListController.returnVenueIds("South"));
+        adapter.setObjectsPerPage(10);
         listview.setAdapter(adapter);
 
         return rootView;

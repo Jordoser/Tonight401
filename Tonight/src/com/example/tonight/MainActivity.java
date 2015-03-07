@@ -66,8 +66,7 @@ public class MainActivity extends FragmentActivity implements
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
         mDrawerList.setBackgroundColor(getResources().getColor(R.color.white));
-        //For testing
-        //mVenueNames=new String[] {"Venue1", "Bar2", "Pub3"};
+
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
                 R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close) {
             public void onDrawerClosed(View view) {

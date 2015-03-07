@@ -12,6 +12,8 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 
+import java.util.Date;
+
 public class VenueCommentsAdapter extends ParseQueryAdapter<ParseObject> {
 
     public VenueCommentsAdapter(Context context, final String venue_id) {
@@ -51,7 +53,43 @@ public class VenueCommentsAdapter extends ParseQueryAdapter<ParseObject> {
         userTextView.setText(object.getString("user"));
 
         TextView postTimeTextView = (TextView) v.findViewById(R.id.post_time);
-        postTimeTextView.setText(object.getCreatedAt().toString());
+        Date postTime = object.getCreatedAt();
+        Date currentTime = new Date();
+        long diff = currentTime.getTime() - postTime.getTime();
+        long diffSeconds = diff/1000;
+        long diffMinutes = diffSeconds/60;
+        long diffHours = diffMinutes/60;
+        long diffDays = diffHours/24;
+        long diffWeeks = diffDays/7;
+
+        String diffString = "";
+        if (diffWeeks > 0) {
+            diffString = diffWeeks + " week";
+            if (diffWeeks > 1) {
+                diffString += "s";
+            }
+        } else if (diffDays > 0) {
+            diffString = diffDays + " day";
+            if (diffDays > 1) {
+                diffString += "s";
+            }
+        } else if (diffHours > 0) {
+            diffString = diffHours + " hour";
+            if (diffHours > 1) {
+                diffString += "s";
+            }
+        } else if (diffMinutes > 0) {
+            diffString = diffMinutes + " minute";
+            if (diffMinutes > 1) {
+                diffString += "s";
+            }
+        } else if (diffSeconds > 0) {
+            diffString = diffSeconds + " second";
+            if (diffSeconds > 1) {
+                diffString += "s";
+            }
+        }
+        postTimeTextView.setText(diffString + " ago");
 
         TextView commentTextView = (TextView) v.findViewById(R.id.comment_text);
         commentTextView.setText(object.getString("commentText"));
