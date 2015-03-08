@@ -1,6 +1,7 @@
 package com.example.tonight;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ public class ParseOperations extends ParseObject {
     public static String venueInfo = new String();
     public static ArrayList<String> hoursList= new ArrayList<String>();
 
+
     public static void getVenues(){
         listVenues = new ArrayList<ParseObject>();
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Venue");
@@ -42,10 +44,11 @@ public class ParseOperations extends ParseObject {
                     VenueListController.setVenueList(listVenues);
                 } else {
                     Log.d("score", "Error: " + e.getMessage());
-                    //listVenues.add("Error");
                 }
+
             }
         });
+
     }
 
     public static void getName(String id) {
@@ -60,34 +63,50 @@ public class ParseOperations extends ParseObject {
             public void done(List<ParseObject> venueList2, ParseException e) {
                 if (e == null) {
                     Log.d("score", "Retrieved " + venueList2.size() + " bars");
-                    for (ParseObject venue:venueList2) {
+                    for (ParseObject venue : venueList2) {
                         System.out.println(venue.get("barName").toString());
                         venue_name = venue.get("barName").toString();
 
-                        if(venue.get("Info") != null) {
+                        if (venue.get("Info") != null) {
                             venueInfo = venue.get("Info").toString();
-                        }else{venueInfo = "No Info";}
-                        if(venue.get("SunHours") != null) {
+                        } else {
+                            venueInfo = "No Info";
+                        }
+                        if (venue.get("SunHours") != null) {
                             hoursList.add(venue.get("SunHours").toString());
-                        }else{hoursList.add("Closed");}
-                        if(venue.get("MonHours") != null) {
+                        } else {
+                            hoursList.add("Closed");
+                        }
+                        if (venue.get("MonHours") != null) {
                             hoursList.add(venue.get("MonHours").toString());
-                        }else{hoursList.add("Closed");}
-                        if(venue.get("TuesHours") != null) {
+                        } else {
+                            hoursList.add("Closed");
+                        }
+                        if (venue.get("TuesHours") != null) {
                             hoursList.add(venue.get("TuesHours").toString());
-                        }else{hoursList.add("Closed");}
-                        if(venue.get("WedHours") != null) {
+                        } else {
+                            hoursList.add("Closed");
+                        }
+                        if (venue.get("WedHours") != null) {
                             hoursList.add(venue.get("WedHours").toString());
-                        }else{hoursList.add("Closed");}
-                        if( venue.get("ThursHours") != null) {
+                        } else {
+                            hoursList.add("Closed");
+                        }
+                        if (venue.get("ThursHours") != null) {
                             hoursList.add(venue.get("ThursHours").toString());
-                        }else{hoursList.add("Closed");}
-                        if(venue.get("FriHours")!=null) {
+                        } else {
+                            hoursList.add("Closed");
+                        }
+                        if (venue.get("FriHours") != null) {
                             hoursList.add(venue.get("FriHours").toString());
-                        }else{hoursList.add("Closed");}
-                        if(venue.get("SatHours")!=null) {
+                        } else {
+                            hoursList.add("Closed");
+                        }
+                        if (venue.get("SatHours") != null) {
                             hoursList.add(venue.get("SatHours").toString());
-                        }else{hoursList.add("Closed");}
+                        } else {
+                            hoursList.add("Closed");
+                        }
 
                     }
                     VenueHolder.setBarName(venue_name);

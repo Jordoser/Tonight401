@@ -1,17 +1,20 @@
 package com.example.tonight;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
+import android.widget.Toast;
 
 
 public class SplashScreen extends ActionBarActivity {
 
-    private final int SPLASH_DISPLAY_LENGTH = 1000;
+    private final int SPLASH_DISPLAY_LENGTH = 1500;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,20 +23,36 @@ public class SplashScreen extends ActionBarActivity {
         getActionBar().hide();
         setContentView(R.layout.activity_splash);
         ParseOperations.getVenues();
+
+        if (isNetworkAvailable(this)) {
+
+        } else {
+            Toast toast = Toast.makeText(this, "No Internet Connection", Toast.LENGTH_SHORT);
+            toast.show();
+            finish();
+        }
+
+
         new Handler().postDelayed(new Runnable() {
+            int test = 0;
                                       @Override
                                       public void run() {
                                           //Do stuff after the SPLASH_DISPLAY LENGTH here
+                                              Intent main = new Intent(getApplicationContext(), MainActivity.class);
+                                              startActivity(main);
 
-                                          Intent main = new Intent(getApplicationContext(), MainActivity.class);
-                                          startActivity(main);
+                                              finish();
 
-                                          finish();
                                       }
                                   }, SPLASH_DISPLAY_LENGTH);
 
-        //Do stuff during the wait here
+
+
     }
+
+
+
+
 
 
     @Override
@@ -54,4 +73,9 @@ public class SplashScreen extends ActionBarActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    public static boolean isNetworkAvailable(Context context) {
+        return ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo() != null;
+    }
+
 }

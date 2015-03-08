@@ -1,5 +1,6 @@
 package com.example.tonight;
 
+import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
@@ -38,6 +40,8 @@ public class MainActivity extends FragmentActivity implements
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
     private ArrayAdapter<String> mListAdapter;
+    private boolean mRunning;
+    Handler mHandler = new Handler();
 
     // Tab titles
     private String[] tabs = { "All", "Downtown", "South", "West", "Whyte" };
@@ -51,6 +55,7 @@ public class MainActivity extends FragmentActivity implements
         setTheme(R.style.AppTheme);
         setContentView(R.layout.activity_main);
 
+        mRunning = true;
         viewPager = (ViewPager) findViewById(R.id.pager);
         actionBar = getActionBar();
         mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
@@ -124,6 +129,7 @@ public class MainActivity extends FragmentActivity implements
         mVenueIds.clear();
         mVenueIds.addAll(VenueListController.returnVenueIds());
         mListAdapter.notifyDataSetChanged();
+        mDrawerList.invalidate();
     }
 
     public void updateDrawer(String area) {
@@ -133,6 +139,7 @@ public class MainActivity extends FragmentActivity implements
         mVenueIds.clear();
         mVenueIds.addAll(VenueListController.returnVenueIds(area));
         mListAdapter.notifyDataSetChanged();
+        mDrawerList.invalidate();
     }
 
     //Drawer OnClick listener
@@ -140,7 +147,7 @@ public class MainActivity extends FragmentActivity implements
         @Override
         public void onItemClick(AdapterView parent, View view, int position, long id) {
             final int pos = position;
-            TextView tv = (TextView) view;
+            final TextView tv = (TextView) view;
             tv.setTextColor(getResources().getColor(R.color.white));
 
             ParseOperations.getName(mVenueIds.get(position));
@@ -148,6 +155,7 @@ public class MainActivity extends FragmentActivity implements
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 public void run() {
+                    tv.setTextColor(getResources().getColor(R.color.pink));
                     Intent intent = new Intent(MainActivity.this, VenueActivity.class);
                     intent.putExtra("venue_id", mVenueIds.get(pos));
                     startActivity(intent);
@@ -216,4 +224,36 @@ public class MainActivity extends FragmentActivity implements
         inflater.inflate(R.menu.main, menu);
         return super.onCreateOptionsMenu(menu);
     }
+
+    public void refreshAll(){
+        mDrawerList.invalidate();
+    }
+
+    Runnable mUpdater = new Runnable() {
+        @Override
+        public void run() {
+            // check if still in focus
+            if (!mRunning) return;
+
+            updateDrawer();
+
+            // schedule next run
+            mHandler.postDelayed(this, 500); // set time here to refresh views
+        }
+    };
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mRunning = true;
+        // start first run by hand
+        mHandler.post(mUpdater);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mRunning= false;
+    }
+
 }

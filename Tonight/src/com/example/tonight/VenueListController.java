@@ -29,34 +29,41 @@ public class VenueListController {
             for (ParseObject venue : venueList) {
                 venues.add(venue.get("barName").toString());
             }
-        }else{venues.add("error");}
+        }else{}
         return venues;
     }
 
     public static ArrayList<String> returnVenues(String area) {
         //returns the list of all venues from the specified area
         ArrayList<String> venues = new ArrayList<String>();
-        for(ParseObject venue:venueList){
-            if(venue.get("Area").equals(area)) {
-                venues.add(venue.get("barName").toString());
+        if(venueList != null) {
+            for (ParseObject venue : venueList) {
+                if (venue.get("Area").equals(area)) {
+                    venues.add(venue.get("barName").toString());
+                }
             }
+
         }
         return venues;
     }
 
     public static ArrayList<String> returnVenueIds() {
         ArrayList<String> venueIds = new ArrayList<String>();
-        for(ParseObject venue:venueList){
-            venueIds.add(venue.getObjectId());
+        if (venueList != null) {
+            for (ParseObject venue : venueList) {
+                venueIds.add(venue.getObjectId());
+            }
         }
         return venueIds;
     }
 
     public static ArrayList<String> returnVenueIds(String area) {
         ArrayList<String> venueIds = new ArrayList<String>();
-        for(ParseObject venue:venueList){
-            if(venue.get("Area").equals(area)) {
-                venueIds.add(venue.getObjectId());
+        if(venueList != null) {
+            for (ParseObject venue : venueList) {
+                if (venue.get("Area").equals(area)) {
+                    venueIds.add(venue.getObjectId());
+                }
             }
         }
         return venueIds;
