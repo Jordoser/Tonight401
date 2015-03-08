@@ -1,5 +1,7 @@
 package com.example.tonight;
 
+import com.parse.ParseFile;
+import com.parse.ParseImageView;
 import com.parse.ParseObject;
 
 import java.util.ArrayList;
@@ -58,6 +60,26 @@ public class VenueListController {
             }
         }
         return venueIds;
+    }
+
+    public static ArrayList<ParseFile> returnVenueLogos() {
+        ArrayList<ParseFile> venueLogos = new ArrayList<ParseFile>();
+        for(ParseObject venue:venueList){
+            ParseFile logo = venue.getParseFile("barLogo");
+            venueLogos.add(logo);
+        }
+        return venueLogos;
+    }
+
+    public static ArrayList<ParseFile> returnVenueLogos(String area) {
+        ArrayList<ParseFile> venueLogos = new ArrayList<ParseFile>();
+        for(ParseObject venue:venueList){
+            if(venue.get("Area").equals(area)) {
+                ParseFile logo = venue.getParseFile("barLogo");
+                venueLogos.add(logo);
+            }
+        }
+        return venueLogos;
     }
 
     public static String getVenueName(String venueID){

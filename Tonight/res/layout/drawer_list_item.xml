@@ -9,4 +9,5 @@
     android:paddingRight="16dp"
     android:textColor="@drawable/text_selector"
     android:background="@drawable/list_selector"
-    android:minHeight="?android:attr/listPreferredItemHeightSmall"/>
+    android:minHeight="?android:attr/listPreferredItemHeightSmall"
+/>
