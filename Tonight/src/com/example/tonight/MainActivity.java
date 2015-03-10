@@ -161,10 +161,9 @@ public class MainActivity extends FragmentActivity implements
         System.out.println("Selected Tab");
         System.out.println(tab.getText());
         if (tab.getText().equals("All")){
-            //updateDrawer();
+            mDrawerFragment.updateDrawer();
         }
-        else {//updateDrawer((String)tab.getText());
-        }
+        else {mDrawerFragment.updateDrawer((String)tab.getText());}
         viewPager.setCurrentItem(tab.getPosition());
     }
 
@@ -184,7 +183,7 @@ public class MainActivity extends FragmentActivity implements
             // check if still in focus
             if (!mRunning) return;
 
-            //updateDrawer();
+            //mDrawerFragment.updateDrawer();
 
             // schedule next run
             mHandler.postDelayed(this, 500); // set time here to refresh views

@@ -65,10 +65,9 @@ public class DrawerFragment extends Fragment {
     private ActionBarDrawerToggle mDrawerToggle;
 
     private DrawerLayout mDrawerLayout;
-    private ListView mDrawerListView;
+    private ListView mDrawerList;
     private View mFragmentContainerView;
 
-    private int mCurrentSelectedPosition = 0;
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
     private DrawerAdapter mDrawerAdapter;
@@ -76,7 +75,7 @@ public class DrawerFragment extends Fragment {
     private ArrayList<String> mVenueNames;
     private ArrayList<String> mVenueIds;
 
-    private int[] images, selectedPosition;
+    private int[] images;
 
     public DrawerFragment() {
     }
@@ -93,13 +92,8 @@ public class DrawerFragment extends Fragment {
         mUserLearnedDrawer = sp.getBoolean(PREF_USER_LEARNED_DRAWER, false);
 
         if (savedInstanceState != null) {
-            mCurrentSelectedPosition = savedInstanceState
-                    .getInt(STATE_SELECTED_POSITION);
             mFromSavedInstanceState = true;
         }
-
-        // Select either the default item (0) or the last selected item.
-        selectItem(mCurrentSelectedPosition);
     }
 
     @Override
@@ -113,9 +107,9 @@ public class DrawerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mDrawerListView = (ListView) inflater.inflate(
+        mDrawerList = (ListView) inflater.inflate(
                 R.layout.fragment_navigation_drawer, container, false);
-        mDrawerListView
+        mDrawerList
                 .setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     /*public void onItemClick(AdapterView<?> parent, View view,
@@ -165,15 +159,14 @@ public class DrawerFragment extends Fragment {
 //                R.drawable.settings_yellow };
         mVenueNames = VenueListController.returnVenues();
         mVenueIds = VenueListController.returnVenueIds();
-        selectedPosition = new int[] { mCurrentSelectedPosition };
 
-        mDrawerAdapter = new DrawerAdapter(getActivity(), mVenueNames, selectedPosition);
+        mDrawerAdapter = new DrawerAdapter(getActivity(), mVenueNames);
 
 //        mDrawerAdapter = new DrawerAdapter(getActivity(), titles, images,
 //                selectedPosition);
-        mDrawerListView.setAdapter(mDrawerAdapter);
-        mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
-        return mDrawerListView;
+        mDrawerList.setAdapter(mDrawerAdapter);
+        //mDrawerList.setItemChecked(mCurrentSelectedPosition, true);
+        return mDrawerList;
     }
 
     public boolean isDrawerOpen() {
@@ -271,9 +264,9 @@ public class DrawerFragment extends Fragment {
     }
 
     private void selectItem(int position) {
-        mCurrentSelectedPosition = position;
-        if (mDrawerListView != null) {
-            mDrawerListView.setItemChecked(position, true);
+        //mCurrentSelectedPosition = position;
+        if (mDrawerList != null) {
+            mDrawerList.setItemChecked(position, true);
         }
         if (mDrawerLayout != null) {
             mDrawerLayout.closeDrawer(mFragmentContainerView);
@@ -303,7 +296,7 @@ public class DrawerFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(STATE_SELECTED_POSITION, mCurrentSelectedPosition);
+        //outState.putInt(STATE_SELECTED_POSITION, mCurrentSelectedPosition);
     }
 
     @Override
@@ -362,5 +355,25 @@ public class DrawerFragment extends Fragment {
          * Called when an item in the navigation drawer is selected.
          */
         void onDrawerItemSelected(int position);
+    }
+
+    public void updateDrawer() {
+        System.out.println("Updated Drawer");
+        mVenueNames.clear();
+        mVenueNames.addAll(VenueListController.returnVenues());
+        mVenueIds.clear();
+        mVenueIds.addAll(VenueListController.returnVenueIds());
+        mDrawerAdapter.notifyDataSetChanged();
+        mDrawerList.invalidate();
+    }
+
+    public void updateDrawer(String area) {
+        System.out.println("Updated Drawer from Area");
+        mVenueNames.clear();
+        mVenueNames.addAll(VenueListController.returnVenues(area));
+        mVenueIds.clear();
+        mVenueIds.addAll(VenueListController.returnVenueIds(area));
+        mDrawerAdapter.notifyDataSetChanged();
+        mDrawerList.invalidate();
     }
 }

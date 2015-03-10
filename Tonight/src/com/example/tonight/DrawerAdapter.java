@@ -20,7 +20,6 @@ public class DrawerAdapter extends BaseAdapter {
     private ArrayList<String> titles;
 //    private int[] images;
     private LayoutInflater inflater;
-    private int[] selectedPosition;
 
     /*public DrawerAdapter(Context context, ArrayList<String> titles, int[] images,
                            int[] selectedPosition) {
@@ -32,13 +31,11 @@ public class DrawerAdapter extends BaseAdapter {
         this.selectedPosition = selectedPosition;
     }*/
 
-    public DrawerAdapter(Context context, ArrayList<String> titles,
-                           int[] selectedPosition) {
+    public DrawerAdapter(Context context, ArrayList<String> titles) {
         // TODO Auto-generated constructor stub
         this.context = context;
         this.titles = titles;
         this.inflater = LayoutInflater.from(this.context);
-        this.selectedPosition = selectedPosition;
     }
 
     @Override
@@ -80,14 +77,14 @@ public class DrawerAdapter extends BaseAdapter {
         mViewHolder.tvTitle.setText(titles.get(position));
         //mViewHolder.ivIcon.setImageResource(images[position]);
 
-        //Highlight the selected list item
+        /*//Highlight the selected list item
         if (position == selectedPosition[0]) {
             convertView.setBackgroundColor(Color.WHITE);
             mViewHolder.tvTitle.setTextColor(Color.BLUE);
         } else {
             convertView.setBackgroundColor(Color.TRANSPARENT);
             mViewHolder.tvTitle.setTextColor(Color.WHITE);
-        }
+        }*/
 
         return convertView;
     }
