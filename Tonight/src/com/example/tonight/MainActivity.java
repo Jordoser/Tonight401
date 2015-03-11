@@ -186,7 +186,7 @@ public class MainActivity extends FragmentActivity implements
             mDrawerFragment.updateDrawer();
 
             // schedule next run
-            mHandler.postDelayed(this, 500); // set time here to refresh views
+            mHandler.postDelayed(this, 1000); // set time here to refresh views
         }
     };
 

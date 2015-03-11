@@ -98,11 +98,13 @@ public class VenueListController {
     public static ArrayList<Bitmap> getVenueLogos(String area) {
         ArrayList<Bitmap> areaLogos = new ArrayList<Bitmap>();
         int count = 0;
-        for(ParseObject venue:venueList){
-            if(venue.get("Area").equals(area)) {
-                areaLogos.add(logos.get(count));
+        if(venueList != null) {
+            for (ParseObject venue : venueList) {
+                if (venue.get("Area").equals(area)) {
+                    areaLogos.add(logos.get(count));
+                }
+                count++;
             }
-            count++;
         }
         return areaLogos;
     }

@@ -1,18 +1,22 @@
 package com.example.tonight;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -162,7 +166,30 @@ public class VenueActivity extends Activity {
     }
 
     public void infoScreen(View view) {
-        Toast toast = Toast.makeText(this, "Test", Toast.LENGTH_LONG);
-        toast.show();
+        //Toast toast = Toast.makeText(this, "Test", Toast.LENGTH_LONG);
+        // toast.show();
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                this);
+
+        // set title
+        String info = VenueHolder.getInfo();
+
+        // set dialog message
+        alertDialogBuilder
+                .setMessage(info)
+                .setCancelable(true);
+                /*.setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // if this button is clicked, close
+                        // current activity
+                        dialog.cancel();
+                    }*/
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
     }
+
 }
