@@ -29,6 +29,7 @@ public class ParseOperations extends ParseObject {
     public static String venue_name = new String();
     public static String venueInfo = new String();
     public static ArrayList<String> hoursList= new ArrayList<String>();
+    public static ArrayList<String> specList= new ArrayList<String>();
     public static ArrayList<Bitmap> logos = new ArrayList<Bitmap>();
 
 
@@ -71,6 +72,7 @@ public class ParseOperations extends ParseObject {
     public static void getName(String id) {
         venue_name = new String();
         hoursList= new ArrayList<String>();
+        specList = new ArrayList<String>();
         venueInfo = new String();
         VenueHolder.setBarID(id);
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Venue");
@@ -125,7 +127,47 @@ public class ParseOperations extends ParseObject {
                             hoursList.add("Closed");
                         }
 
+
+
+                        if (venue.get("SunSpec") != null) {
+                            specList.add(venue.get("SunSpec").toString());
+                        } else {
+                            specList.add("None");
+                        }
+                        if (venue.get("MonSpec") != null) {
+                            specList.add(venue.get("MonSpec").toString());
+                        } else {
+                            specList.add("None");
+                        }
+                        if (venue.get("TuesSpec") != null) {
+                            specList.add(venue.get("TuesSpec").toString());
+                        } else {
+                            specList.add("None");
+                        }
+                        if (venue.get("WedSpec") != null) {
+                            specList.add(venue.get("WedSpec").toString());
+                        } else {
+                            specList.add("None");
+                        }
+                        if (venue.get("ThursSpec") != null) {
+                            specList.add(venue.get("ThursSpec").toString());
+                        } else {
+                            specList.add("None");
+                        }
+                        if (venue.get("FriSpec") != null) {
+                            specList.add(venue.get("FriSpec").toString());
+                        } else {
+                            specList.add("None");
+                        }
+                        if (venue.get("SatSpec") != null) {
+                            specList.add(venue.get("SatSpec").toString());
+                        } else {
+                            specList.add("None");
+                            Log.d("score", "specials added");
+                        }
+
                     }
+                    VenueHolder.setListSpecials(specList);
                     VenueHolder.setBarName(venue_name);
                     VenueHolder.setListHours(hoursList);
                     VenueHolder.setInfo(venueInfo);

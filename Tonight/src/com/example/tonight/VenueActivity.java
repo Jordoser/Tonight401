@@ -16,13 +16,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
-import com.parse.ParseQueryAdapter;
-
-import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -85,11 +78,11 @@ public class VenueActivity extends Activity {
         Intent intent = getIntent();
         venue_id = intent.getStringExtra("venue_id");
 
-        TextView venueHours = (TextView)findViewById(R.id.venueHours);
+        TextView venueHours = (TextView)findViewById(R.id.venueSpec);
         venueHours.setText("Hours: "+VenueHolder.getListHours().get(day));
 
-        TextView venueInfo = (TextView)findViewById(R.id.venueInfo);
-        venueInfo.setText(VenueHolder.getInfo());
+        TextView venueInfo = (TextView)findViewById(R.id.venueSpecList);
+        venueInfo.setText("Specials: "+VenueHolder.getListSpecials().get(day));
 
         //Code For Weekday Spinner
         spinner = (Spinner) findViewById(R.id.weekday_spinner);
@@ -108,8 +101,11 @@ public class VenueActivity extends Activity {
                 // An spinnerItem was selected. You can retrieve the selected item using
                 // parent.getItemAtPosition(pos)
                 String test = Integer.toString(pos);
-                TextView venueHours = (TextView)findViewById(R.id.venueHours);
+                TextView venueHours = (TextView)findViewById(R.id.venueSpec);
                 venueHours.setText("Hours: "+VenueHolder.getListHours().get(pos));
+
+                TextView venSpec = (TextView)findViewById(R.id.venueSpecList);
+                venSpec.setText("Specials: "+VenueHolder.getListSpecials().get(pos));
                 view.invalidate();
 
             }

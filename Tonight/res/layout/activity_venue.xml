@@ -31,7 +31,7 @@
             android:layout_toRightOf="@+id/venueLogo"
             android:layout_toEndOf="@+id/venueLogo" />
         <TextView
-            android:id = "@+id/venueHours"
+            android:id = "@+id/venueSpec"
             android:textSize="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -40,12 +40,12 @@
             android:layout_toRightOf="@+id/venueLogo"
             android:layout_toEndOf="@+id/venueLogo"/>
         <TextView
-            android:id = "@+id/venueInfo"
+            android:id = "@+id/venueSpecList"
             android:textSize="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="VENUE INFORMATION"
-            android:layout_below="@+id/venueHours"
+            android:text="VENUE SPECIALS"
+            android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/venueLogo"
             android:layout_toEndOf="@+id/venueLogo" />
     </RelativeLayout>
