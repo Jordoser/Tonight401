@@ -2,12 +2,15 @@ package com.example.tonight;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
@@ -26,6 +29,7 @@ public class ParseOperations extends ParseObject {
     public static String venue_name = new String();
     public static String venueInfo = new String();
     public static ArrayList<String> hoursList= new ArrayList<String>();
+    public static ArrayList<Bitmap> logos = new ArrayList<Bitmap>();
 
 
     public static void getVenues(){
@@ -40,8 +44,21 @@ public class ParseOperations extends ParseObject {
                         System.out.println(venue.get("barName").toString());
                         listVenues.add(venue);
                         System.out.println("Added Venue");
+
+                        ParseFile imgFile = (ParseFile)venue.get("barLogo");
+                        if(imgFile != null){
+                            try {
+                                byte[] data = imgFile.getData();
+                                Bitmap bMap = BitmapFactory.decodeByteArray(data, 0, data.length);
+                                logos.add(bMap);
+                            } catch (ParseException e2) {
+                                // TODO Auto-generated catch block
+                                e2.printStackTrace();
+                            }
+                        }
+                        else{logos.add(null);}
                     }
-                    VenueListController.setVenueList(listVenues);
+                    VenueListController.setVenueList(listVenues, logos);
                 } else {
                     Log.d("score", "Error: " + e.getMessage());
                 }

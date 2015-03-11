@@ -4,6 +4,7 @@ package com.example.tonight.fragment;
  * Created by junker4ce on 15-03-09.
  */
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
@@ -33,6 +34,7 @@ import com.example.tonight.R;
 import com.example.tonight.ScreenName;
 import com.example.tonight.VenueActivity;
 import com.example.tonight.VenueListController;
+import com.parse.ParseFile;
 
 import java.util.ArrayList;
 
@@ -75,7 +77,7 @@ public class DrawerFragment extends Fragment {
     private ArrayList<String> mVenueNames;
     private ArrayList<String> mVenueIds;
 
-    private int[] images;
+    private ArrayList<Bitmap> mLogos;
 
     public DrawerFragment() {
     }
@@ -159,8 +161,9 @@ public class DrawerFragment extends Fragment {
 //                R.drawable.settings_yellow };
         mVenueNames = VenueListController.returnVenues();
         mVenueIds = VenueListController.returnVenueIds();
+        mLogos = (VenueListController.getVenueLogos());
 
-        mDrawerAdapter = new DrawerAdapter(getActivity(), mVenueNames);
+        mDrawerAdapter = new DrawerAdapter(getActivity(), mVenueNames, mLogos);
 
 //        mDrawerAdapter = new DrawerAdapter(getActivity(), titles, images,
 //                selectedPosition);
@@ -331,22 +334,6 @@ public class DrawerFragment extends Fragment {
     }
 
     /**
-     * Per the navigation drawer design guidelines, updates the action bar to
-     * show the global app 'context', rather than just what's in the current
-     * screen.
-     */
-   /* private void showGlobalContextActionBar() {
-        ActionBar actionBar = getActionBar();
-        actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-        actionBar.setTitle(R.string.app_name);
-    }
-*/
-    //private ActionBar getActionBar() {
-    //    return ((ActionBarActivity) getActivity()).getSupportActionBar();
-    //}
-
-    /**
      * Callbacks interface that all activities using this fragment must
      * implement.
      */
@@ -359,6 +346,8 @@ public class DrawerFragment extends Fragment {
 
     public void updateDrawer() {
         System.out.println("Updated Drawer");
+        mLogos.clear();
+        mLogos.addAll(VenueListController.getVenueLogos());
         mVenueNames.clear();
         mVenueNames.addAll(VenueListController.returnVenues());
         mVenueIds.clear();
@@ -369,6 +358,8 @@ public class DrawerFragment extends Fragment {
 
     public void updateDrawer(String area) {
         System.out.println("Updated Drawer from Area");
+        mLogos.clear();
+        mLogos.addAll(VenueListController.getVenueLogos(area));
         mVenueNames.clear();
         mVenueNames.addAll(VenueListController.returnVenues(area));
         mVenueIds.clear();

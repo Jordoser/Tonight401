@@ -4,6 +4,8 @@ package com.example.tonight;
  * Created by junker4ce on 15-03-09.
  */
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,13 +14,17 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.parse.ParseFile;
+import com.parse.ParseImageView;
+
 import java.util.ArrayList;
 
 public class DrawerAdapter extends BaseAdapter {
 
     private Context context;
     private ArrayList<String> titles;
-//    private int[] images;
+    //private int[] images;
+    private ArrayList<Bitmap> logos;
     private LayoutInflater inflater;
 
     /*public DrawerAdapter(Context context, ArrayList<String> titles, int[] images,
@@ -31,10 +37,11 @@ public class DrawerAdapter extends BaseAdapter {
         this.selectedPosition = selectedPosition;
     }*/
 
-    public DrawerAdapter(Context context, ArrayList<String> titles) {
+    public DrawerAdapter(Context context, ArrayList<String> titles, ArrayList<Bitmap> logos) {
         // TODO Auto-generated constructor stub
         this.context = context;
         this.titles = titles;
+        this.logos = logos;
         this.inflater = LayoutInflater.from(this.context);
     }
 
@@ -74,7 +81,10 @@ public class DrawerAdapter extends BaseAdapter {
         mViewHolder.ivIcon = (ImageView) convertView
                 .findViewById(R.id.barLogo);
 
+
         mViewHolder.tvTitle.setText(titles.get(position));
+        mViewHolder.ivIcon.setImageBitmap(logos.get(position));
+
         //mViewHolder.ivIcon.setImageResource(images[position]);
 
         /*//Highlight the selected list item

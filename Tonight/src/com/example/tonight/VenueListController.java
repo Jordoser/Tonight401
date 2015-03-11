@@ -1,5 +1,7 @@
 package com.example.tonight;
 
+import android.graphics.Bitmap;
+
 import com.parse.ParseFile;
 import com.parse.ParseImageView;
 import com.parse.ParseObject;
@@ -11,10 +13,12 @@ import java.util.ArrayList;
  */
 public class VenueListController {
     public static ArrayList<ParseObject> venueList;
+    public static ArrayList<Bitmap> logos;
 
-    public static void setVenueList(ArrayList<ParseObject> vList){
+    public static void setVenueList(ArrayList<ParseObject> vList, ArrayList<Bitmap> vImgs){
         if(venueList != null){venueList.clear();}
         venueList = vList;
+        logos = vImgs;
         System.out.println(venueList.size());
     }
 
@@ -26,8 +30,13 @@ public class VenueListController {
         //returns the list of all venues
         ArrayList<String> venues = new ArrayList<String>();
         if( venueList != null) {
+            int count = 0;
             for (ParseObject venue : venueList) {
-                venues.add(venue.get("barName").toString());
+                if (logos.get(count) == null) {
+                    venues.add(venue.get("barName").toString());
+                }
+                else{venues.add(null);}
+                count++;
             }
         }else{}
         return venues;
@@ -37,10 +46,15 @@ public class VenueListController {
         //returns the list of all venues from the specified area
         ArrayList<String> venues = new ArrayList<String>();
         if(venueList != null) {
+            int count = 0;
             for (ParseObject venue : venueList) {
                 if (venue.get("Area").equals(area)) {
-                    venues.add(venue.get("barName").toString());
+                    if (logos.get(count) == null) {
+                        venues.add(venue.get("barName").toString());
+                    }
+                    else{venues.add(null);}
                 }
+                count++;
             }
 
         }
@@ -69,24 +83,26 @@ public class VenueListController {
         return venueIds;
     }
 
-    public static ArrayList<ParseFile> returnVenueLogos() {
-        ArrayList<ParseFile> venueLogos = new ArrayList<ParseFile>();
+    public static ArrayList<Bitmap> getVenueLogos() {
+        ArrayList<Bitmap> areaLogos = new ArrayList<Bitmap>();
+        int count = 0;
         for(ParseObject venue:venueList){
-            ParseFile logo = venue.getParseFile("barLogo");
-            venueLogos.add(logo);
+            areaLogos.add(logos.get(count));
+            count++;
         }
-        return venueLogos;
+        return areaLogos;
     }
 
-    public static ArrayList<ParseFile> returnVenueLogos(String area) {
-        ArrayList<ParseFile> venueLogos = new ArrayList<ParseFile>();
+    public static ArrayList<Bitmap> getVenueLogos(String area) {
+        ArrayList<Bitmap> areaLogos = new ArrayList<Bitmap>();
+        int count = 0;
         for(ParseObject venue:venueList){
             if(venue.get("Area").equals(area)) {
-                ParseFile logo = venue.getParseFile("barLogo");
-                venueLogos.add(logo);
+                areaLogos.add(logos.get(count));
             }
+            count++;
         }
-        return venueLogos;
+        return areaLogos;
     }
 
     public static String getVenueName(String venueID){
