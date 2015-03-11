@@ -17,6 +17,7 @@ import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 import com.parse.ParseUser;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -62,10 +63,10 @@ public class MainCommentsAdapter extends ParseQueryAdapter<ParseObject>{
         Date currentTime = new Date();
         long diff = currentTime.getTime() - postTime.getTime();
         long diffSeconds = diff/1000;
-        long diffMinutes = diffSeconds/60;
-        long diffHours = diffMinutes/60;
-        long diffDays = diffHours/24;
-        long diffWeeks = diffDays/7;
+        long diffMinutes = diff/(1000 * 60);
+        long diffHours = diff/(1000 * 60 * 60);
+        long diffDays = diff/(1000 * 60 * 60 * 24);
+        long diffWeeks = diff/(1000 * 60 * 60 * 24 * 7);
 
         String diffString = "";
         if (diffWeeks > 0) {
@@ -96,7 +97,7 @@ public class MainCommentsAdapter extends ParseQueryAdapter<ParseObject>{
             }
             postTimeTextView.setText(diffString + " ago");
 
-        } else if (diffSeconds > 0) {
+        } else if (diffSeconds >= 0) {
             diffString = diffSeconds + " second";
             if (diffSeconds > 1) {
                 diffString += "s";
@@ -104,7 +105,9 @@ public class MainCommentsAdapter extends ParseQueryAdapter<ParseObject>{
             postTimeTextView.setText(diffString + " ago");
 
         } else {
-            postTimeTextView.setText("Just now");
+            SimpleDateFormat df = new SimpleDateFormat("MMM d");
+            String postDate = df.format(postTime);
+            postTimeTextView.setText(postDate);
         }
 
         TextView commentTextView = (TextView) v.findViewById(R.id.comment_text_main);
