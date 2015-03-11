@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -105,7 +106,7 @@ public class VenueActivity extends Activity {
                 venueHours.setText("Hours: "+VenueHolder.getListHours().get(pos));
 
                 TextView venSpec = (TextView)findViewById(R.id.venueSpecList);
-                venSpec.setText("Specials: "+VenueHolder.getListSpecials().get(pos));
+                venSpec.setText("Specials: " + VenueHolder.getListSpecials().get(pos));
                 view.invalidate();
 
             }
@@ -158,5 +159,10 @@ public class VenueActivity extends Activity {
         commentAdapter.setObjectsPerPage(10);
         commentList.setAdapter(commentAdapter);
        // commentAdapter.notifyDataSetChanged();
+    }
+
+    public void infoScreen(View view) {
+        Toast toast = Toast.makeText(this, "Test", Toast.LENGTH_LONG);
+        toast.show();
     }
 }

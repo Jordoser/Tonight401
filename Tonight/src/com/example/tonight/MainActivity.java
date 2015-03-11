@@ -183,7 +183,7 @@ public class MainActivity extends FragmentActivity implements
             // check if still in focus
             if (!mRunning) return;
 
-            //mDrawerFragment.updateDrawer();
+            mDrawerFragment.updateDrawer();
 
             // schedule next run
             mHandler.postDelayed(this, 500); // set time here to refresh views
