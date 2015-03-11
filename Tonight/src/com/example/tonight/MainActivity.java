@@ -184,6 +184,10 @@ public class MainActivity extends FragmentActivity implements
             if (!mRunning) return;
 
             mDrawerFragment.updateDrawer();
+            if (VenueListController.venueList != null){
+                mRunning = false;
+            }
+
 
             // schedule next run
             mHandler.postDelayed(this, 1000); // set time here to refresh views
