@@ -3,65 +3,67 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:weightSum="1" >
+    android:weightSum="1">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="center"
         android:layout_weight="0.3"
-        android:clickable="true" >
+        android:clickable="true">
 
         <ImageView
-            android:src="@drawable/ic_launcher"
+            android:id="@+id/venueLogo"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:id="@+id/venueLogo" />
+            android:layout_alignParentTop="true"
+            android:src="@drawable/ic_launcher" />
 
         <TextView
-            android:id = "@+id/venueName"
-            android:textSize="20dp"
+            android:id="@+id/venueName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="VENUE NAME"
             android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/venueLogo"
             android:layout_toRightOf="@+id/venueLogo"
-            android:layout_toEndOf="@+id/venueLogo" />
+            android:text="VENUE NAME"
+            android:textSize="20dp" />
+
         <TextView
-            android:id = "@+id/venueSpec"
-            android:textSize="20dp"
+            android:id="@+id/venueSpec"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="OPERATING HOURS"
             android:layout_below="@+id/venueName"
+            android:layout_toEndOf="@+id/venueLogo"
             android:layout_toRightOf="@+id/venueLogo"
-            android:layout_toEndOf="@+id/venueLogo"/>
+            android:text="OPERATING HOURS"
+            android:textSize="20dp" />
+
         <TextView
-            android:id = "@+id/venueSpecList"
-            android:textSize="20dp"
+            android:id="@+id/venueSpecList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="VENUE SPECIALS"
             android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/venueLogo"
             android:layout_toRightOf="@+id/venueLogo"
-            android:layout_toEndOf="@+id/venueLogo" />
+            android:text="VENUE SPECIALS"
+            android:textSize="20dp" />
 
         <Button
+            android:id="@+id/info"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Info"
-            android:textStyle="normal|italic"
-            android:textColor="@color/pink"
-            android:id="@+id/info"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
             android:background="@null"
             android:onClick="infoScreen"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:text="Info"
+            android:textColor="@color/pink"
+            android:textStyle="normal|italic" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -74,8 +76,8 @@
         <Spinner
             android:id="@+id/weekday_spinner"
             android:layout_width="100dp"
-            android:layout_gravity="center"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
 
     </RelativeLayout>
 
@@ -83,64 +85,90 @@
     <View
         android:layout_width="fill_parent"
         android:layout_height="3dp"
-        android:background="@android:color/darker_gray"/>
+        android:background="@android:color/darker_gray" />
 
     <TextView
-        android:textSize="20dp"
-        android:layout_weight="0.03"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Recent Feed"
+        android:layout_alignEnd="@+id/weekday_spinner"
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/weekday_spinner"
-        android:layout_alignEnd="@+id/weekday_spinner" />
+        android:layout_weight="0.03"
+        android:text="Recent Feed"
+        android:textSize="20dp" />
 
     <!-- Divider -->
     <View
         android:layout_width="fill_parent"
         android:layout_height="3dp"
-        android:background="@android:color/darker_gray"/>
+        android:background="@android:color/darker_gray" />
 
     <LinearLayout
         android:id="@+id/commentsView"
-        android:background="#00b159"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.57"
-        android:textColor="#000000" >
+        android:background="#00b159"
+        android:textColor="#000000">
 
         <ListView
-            android:background="#00b158"
             android:id="@+id/venueCommentList"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:background="#00b158"
             android:divider="@android:color/black"
             android:dividerHeight="2sp"
-            android:textColor="#000000" >
-        </ListView>
+            android:textColor="#000000"></ListView>
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/photo"
+        android:layout_width="wrap_content"
+        android:layout_height="250dp"
+        android:adjustViewBounds="true"
+        android:layout_gravity="end"
+        android:background="@android:color/transparent"
+        android:visibility="gone" />
+
+    <VideoView
+        android:id="@+id/video"
+        android:layout_width="wrap_content"
+        android:layout_height="250dp"
+        android:adjustViewBounds="true"
+        android:layout_gravity="end"
+        android:background="@android:color/transparent"
+        android:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/WriteCommentWall"
-        android:layout_height="wrap_content"
         android:layout_width="fill_parent"
-        android:orientation="horizontal"
-        android:background="#ffffff">
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:orientation="horizontal">
 
-        <EditText android:id="@+id/postText"
-            android:layout_height="wrap_content"
+        <EditText
+            android:id="@+id/postText"
             android:layout_width="fill_parent"
-            android:hint="Write a post....   "
+            android:layout_height="wrap_content"
             android:layout_marginLeft="2dip"
             android:layout_marginRight="2dip"
-            android:inputType="textMultiLine|textAutoCorrect"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:hint="Write a post....   "
+            android:inputType="textMultiLine|textAutoCorrect" />
 
-        <Button android:id="@+id/postButton"
-            android:layout_height="fill_parent"
+        <Button
+            android:id="@+id/postButton"
             android:layout_width="wrap_content"
-            android:text="Post"
-            android:layout_gravity="bottom"/>
+            android:layout_height="fill_parent"
+            android:layout_gravity="bottom"
+            android:text="Post" />
+
+        <Button
+            android:id="@+id/pictureButton"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_gravity="bottom"
+            android:text="Attach" />
 
     </LinearLayout>
 

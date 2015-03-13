@@ -27,8 +27,9 @@ public class DowntownFragment extends Fragment {
         listview =(ListView)rootView.findViewById(R.id.venueCommentListDowntown);
         adapter = new MainCommentsAdapter(this.getActivity().getApplicationContext(), VenueListController.returnVenueIds("Downtown"));
         adapter.setObjectsPerPage(10);
-        listview.setAdapter(adapter);
-
+        if (listview != null) {
+            listview.setAdapter(adapter);
+        }
 
         return rootView;
     }

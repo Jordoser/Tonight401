@@ -27,8 +27,9 @@ public class WhyteFragment extends Fragment {
         listview =(ListView)rootView.findViewById(R.id.venueCommentListWhyte);
         adapter = new MainCommentsAdapter(this.getActivity().getApplicationContext(), VenueListController.returnVenueIds("Whyte"));
         adapter.setObjectsPerPage(10);
-        listview.setAdapter(adapter);
-
+        if (listview != null) {
+            listview.setAdapter(adapter);
+        }
         return rootView;
     }
 }

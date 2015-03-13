@@ -28,10 +28,12 @@ public class AllFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_all, container, false);
-        listview =(ListView) rootView.findViewById(R.id.venueCommentListAll);
+        listview = (ListView) rootView.findViewById(R.id.venueCommentListAll);
         adapter = new MainCommentsAdapter(this.getActivity().getApplicationContext(), VenueListController.returnVenueIds());
         adapter.setObjectsPerPage(10);
-        listview.setAdapter(adapter);
+        if (listview != null) {
+            listview.setAdapter(adapter);
+        }
 
         return rootView;
     }

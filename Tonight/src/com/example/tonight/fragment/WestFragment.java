@@ -27,7 +27,9 @@ public class WestFragment extends Fragment {
         listview =(ListView)rootView.findViewById(R.id.venueCommentListWest);
         adapter = new MainCommentsAdapter(this.getActivity().getApplicationContext(), VenueListController.returnVenueIds("West"));
         adapter.setObjectsPerPage(10);
-        listview.setAdapter(adapter);
+        if (listview != null) {
+            listview.setAdapter(adapter);
+        }
 
         return rootView;
     }
