@@ -148,7 +148,7 @@ public class DrawerFragment extends Fragment {
                                 Intent intent = new Intent(getActivity(), VenueActivity.class);
                                 intent.putExtra("venue_id", mVenueIds.get(pos));
                                 startActivity(intent);
-                                getActivity().overridePendingTransition(R.anim.left_slide_in, R.anim.right_slide_out);
+                                //getActivity().overridePendingTransition(R.anim.left_slide_in, R.anim.right_slide_out);
                             }
                         }, 750);
 

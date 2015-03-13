@@ -108,14 +108,12 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.57"
-        android:background="#00b159"
         android:textColor="#000000">
 
         <ListView
             android:id="@+id/venueCommentList"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:background="#00b158"
             android:divider="@android:color/black"
             android:dividerHeight="2sp"
             android:textColor="#000000"></ListView>

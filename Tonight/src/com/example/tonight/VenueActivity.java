@@ -163,7 +163,7 @@ public class VenueActivity extends Activity {
 
             PopupMenu popup = new PopupMenu(VenueActivity.this, pictureBtn);
 
-            //popup.getMenuInflater().inflate(R.menu.camera_popup, popup.getMenu());
+            popup.getMenuInflater().inflate(R.menu.camera_popup, popup.getMenu());
 
             popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                 public boolean onMenuItemClick(MenuItem item) {
