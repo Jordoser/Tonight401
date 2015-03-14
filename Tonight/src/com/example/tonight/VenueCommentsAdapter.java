@@ -3,6 +3,7 @@ package com.example.tonight;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -32,7 +33,7 @@ public class VenueCommentsAdapter extends ParseQueryAdapter<ParseObject> {
     }
 
     @Override
-    public View getItemView(ParseObject object, View v, ViewGroup parent) {
+    public View getItemView(final ParseObject object, View v, ViewGroup parent) {
         if (v == null) {
             v = View.inflate(getContext(), R.layout.comment_item, null);
         }
@@ -110,9 +111,29 @@ public class VenueCommentsAdapter extends ParseQueryAdapter<ParseObject> {
         commentTextView.setText(object.getString("commentText"));
 
         Integer totalLikes = object.getInt("likes") - object.getInt("dislikes");
-        TextView likesTextView = (TextView) v.findViewById(R.id.likes);
+        final TextView likesTextView = (TextView) v.findViewById(R.id.likes);
         likesTextView.setText(totalLikes.toString());
 
+
+        final ImageButton likes= (ImageButton) v.findViewById(R.id.likeButton2);
+        likes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ParseOperations.increment("likes",object);
+                String total=ParseOperations.newTotalLikes(object.getString("objectId"),object.getInt("likes") - object.getInt("dislikes"));
+                likesTextView.setText(total);
+            }
+        });
+
+        final ImageButton disLikes= (ImageButton) v.findViewById(R.id.dislikeButton2);
+        disLikes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ParseOperations.increment("dislikes",object);
+                String total=ParseOperations.newTotalLikes(object.getString("objectId"),object.getInt("likes") - object.getInt("dislikes"));
+                likesTextView.setText(total);
+            }
+        });
         return v;
     }
 }

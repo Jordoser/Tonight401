@@ -2,8 +2,8 @@
   <library name="libs1">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/Tonight/libs/ParseCrashReporting-1.8.2.jar!/" />
-      <root url="jar://$PROJECT_DIR$/Tonight/libs/bolts-android-1.1.4.jar!/" />
       <root url="jar://$PROJECT_DIR$/Tonight/libs/Parse-1.8.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Tonight/libs/bolts-android-1.1.4.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

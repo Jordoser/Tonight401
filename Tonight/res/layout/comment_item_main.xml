@@ -68,4 +68,22 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"/>
 
+    <ImageButton
+        android:layout_width="30dip"
+        android:layout_height="30dip"
+        android:id="@+id/likeButton"
+        android:background="@drawable/up_arrow"
+        android:layout_below="@+id/likes_string_main"
+        android:layout_toLeftOf="@+id/likes_string_main"
+        android:layout_toStartOf="@+id/likes_string_main" />
+
+    <ImageButton
+        android:layout_width="30dip"
+        android:layout_height="30dip"
+        android:id="@+id/dislikeButton"
+        android:background="@drawable/down_arrow"
+        android:layout_below="@+id/likes_string_main"
+        android:layout_toLeftOf="@+id/likes_main"
+        android:layout_toStartOf="@+id/likes_main" />
+
 </RelativeLayout>

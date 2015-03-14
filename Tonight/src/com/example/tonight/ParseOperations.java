@@ -8,6 +8,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -33,6 +34,7 @@ public class ParseOperations extends ParseObject {
     public static ArrayList<String> specList= new ArrayList<String>();
     public static ArrayList<Bitmap> logos = new ArrayList<Bitmap>();
     public static ParseGeoPoint gp = new ParseGeoPoint();
+    public static int totalLikes;
 
 
     public static void getVenues(){
@@ -222,4 +224,37 @@ public class ParseOperations extends ParseObject {
     //    Log.d("score", "Retrieved " + listVenues.size() + " Foster");
     //    return listVenues;
     //}
+    public static void increment(String column, ParseObject point) {
+        // Increment the current value of the quantity key by 1
+        point.increment(column);
+        // Save
+        point.saveInBackground(new SaveCallback() {
+            public void done(ParseException e) {
+                if (e == null) {
+                    // Saved successfully.
+                } else {
+                    // The save failed.
+                }
+            }
+        });
+
+    }
+
+    public static String newTotalLikes(String Id,int likes) {
+        totalLikes=likes;
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Comments");
+        query.whereEqualTo("objectId", Id);
+        query.getFirstInBackground(new GetCallback<ParseObject>() {
+            public void done(ParseObject object, ParseException e) {
+                if (object == null) {
+                    Log.d("score", "The getFirst request failed.");
+                } else {
+                    int dislikes = object.getInt("dislikes");
+                    int likes = object.getInt("likes");
+                    totalLikes=likes-dislikes;
+                }
+            }
+        });
+        return Integer.toString(totalLikes);
+    }
 }

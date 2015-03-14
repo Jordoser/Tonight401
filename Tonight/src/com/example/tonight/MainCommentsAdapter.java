@@ -5,6 +5,7 @@ import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,7 +40,7 @@ public class MainCommentsAdapter extends ParseQueryAdapter<ParseObject>{
     }
 
     @Override
-    public View getItemView(ParseObject object, View v, ViewGroup parent) {
+    public View getItemView(final ParseObject object, View v, ViewGroup parent) {
         if (v == null) {
             v = View.inflate(getContext(), R.layout.comment_item_main, null);
         }
@@ -114,13 +115,33 @@ public class MainCommentsAdapter extends ParseQueryAdapter<ParseObject>{
         commentTextView.setText(object.getString("commentText"));
 
         Integer totalLikes = object.getInt("likes") - object.getInt("dislikes");
-        TextView likesTextView = (TextView) v.findViewById(R.id.likes_main);
+        final TextView likesTextView = (TextView) v.findViewById(R.id.likes_main);
         likesTextView.setText(totalLikes.toString());
 
 
         TextView barNameTextView = (TextView) v.findViewById(R.id.bar_name_main);
         String venueName = VenueListController.getVenueName(object.getString("barId"));
         barNameTextView.setText("@" + venueName);
+
+        final ImageButton likes= (ImageButton) v.findViewById(R.id.likeButton);
+        likes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ParseOperations.increment("likes",object);
+                String total=ParseOperations.newTotalLikes(object.getString("objectId"),object.getInt("likes") - object.getInt("dislikes"));
+                likesTextView.setText(total);
+            }
+        });
+
+        final ImageButton disLikes= (ImageButton) v.findViewById(R.id.dislikeButton);
+        disLikes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ParseOperations.increment("dislikes",object);
+                String total=ParseOperations.newTotalLikes(object.getString("objectId"),object.getInt("likes") - object.getInt("dislikes"));
+                likesTextView.setText(total);
+            }
+        });
 
         return v;
     }
