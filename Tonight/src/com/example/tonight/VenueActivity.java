@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.MediaController;
 import android.widget.PopupMenu;
@@ -48,6 +49,7 @@ public class VenueActivity extends Activity {
     private ImageView imageView;
     private VideoView videoView;
     private int MEDIA_TYPE;
+    private int dist;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -170,10 +172,17 @@ public class VenueActivity extends Activity {
                     * Math.cos(Math.toRadians(loc.get(0))) * Math.cos(Math.toRadians(barloc.get(0)));
             double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
             double distdouble = earthRadius * c;
-            int dist = (int) distdouble;
+            dist = (int) distdouble;
+            LinearLayout posting = (LinearLayout) findViewById(R.id.WriteCommentWall);
+            if (dist < 15){
+                posting.setVisibility(LinearLayout.VISIBLE);
+            }else{
+                posting.setVisibility(LinearLayout.GONE);
+            }
         }catch (IOException ie){
             ie.printStackTrace();
         }
+        Log.d("dist =",String.valueOf(dist));
 
 
 
@@ -318,4 +327,6 @@ public class VenueActivity extends Activity {
             imageView.setVisibility(ImageView.VISIBLE);
         }
     }
+
+
 }

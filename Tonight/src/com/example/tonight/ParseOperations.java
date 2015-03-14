@@ -169,6 +169,11 @@ public class ParseOperations extends ParseObject {
                         }
                         if (venue.get("location") != null){
                             gp = (ParseGeoPoint)venue.get("location");
+                        }else{
+                            ParseGeoPoint error = new ParseGeoPoint();
+                            error.setLatitude(0);
+                            error.setLongitude(0);
+                            gp = error;
                         }
 
                     }
