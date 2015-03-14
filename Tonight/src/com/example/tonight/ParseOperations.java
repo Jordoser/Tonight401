@@ -11,6 +11,7 @@ import com.parse.FindCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
@@ -31,6 +32,7 @@ public class ParseOperations extends ParseObject {
     public static ArrayList<String> hoursList= new ArrayList<String>();
     public static ArrayList<String> specList= new ArrayList<String>();
     public static ArrayList<Bitmap> logos = new ArrayList<Bitmap>();
+    public static ParseGeoPoint gp = new ParseGeoPoint();
 
 
     public static void getVenues(){
@@ -165,12 +167,16 @@ public class ParseOperations extends ParseObject {
                             specList.add("None");
                             Log.d("score", "specials added");
                         }
+                        if (venue.get("location") != null){
+                            gp = (ParseGeoPoint)venue.get("location");
+                        }
 
                     }
                     VenueHolder.setListSpecials(specList);
                     VenueHolder.setBarName(venue_name);
                     VenueHolder.setListHours(hoursList);
                     VenueHolder.setInfo(venueInfo);
+                    VenueHolder.setGeoPoint(gp);
                 } else {
                     Log.d("score", "Error: " + e.getMessage());
                     //listVenues.add("Error");

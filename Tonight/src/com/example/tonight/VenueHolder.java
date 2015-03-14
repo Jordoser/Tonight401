@@ -1,5 +1,7 @@
 package com.example.tonight;
 
+import com.parse.ParseGeoPoint;
+
 import java.util.ArrayList;
 
 /**
@@ -13,6 +15,7 @@ public class VenueHolder {
     public static ArrayList<String> listHours = new ArrayList<String>();
     public static ArrayList<String> listSpecials = new ArrayList<String>();
     public static byte[] barPhoto;
+    public static ParseGeoPoint Location;
 
     public static String getBarID() {
         return barID;
@@ -61,4 +64,23 @@ public class VenueHolder {
     public static void setBarPhoto(byte[] barPhoto) {
         VenueHolder.barPhoto = barPhoto;
     }
+
+    public static void setGeoPoint(ParseGeoPoint gp) {
+        VenueHolder.Location = gp;
+    }
+
+    public static ArrayList<Double> getGeoPoint() {
+        ArrayList<Double> loc = new ArrayList<Double>();
+        if (VenueHolder.Location != null) {
+            loc.add(VenueHolder.Location.getLatitude());
+            loc.add(VenueHolder.Location.getLongitude());
+        } else {
+            double error = 0;
+            loc.add(error);
+            loc.add(error);
+        }
+        return loc;
+    }
 }
+
+

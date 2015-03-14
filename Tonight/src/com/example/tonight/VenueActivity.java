@@ -155,7 +155,34 @@ public class VenueActivity extends Activity {
         } else if (MEDIA_TYPE == 2) {
             handleVideo(path);
         }
-    }
+
+
+        GeoLoc gl = new GeoLoc(this);
+        try {
+            ArrayList<Double> loc = gl.findLocation();
+            ArrayList<Double> barloc = VenueHolder.getGeoPoint();
+            double earthRadius = 6371.0;
+            double dLat = Math.toRadians(barloc.get(0) - loc.get(0));
+            double dLng = Math.toRadians(barloc.get(1) - loc.get(1));
+            double sindLat = Math.sin(dLat / 2);
+            double sindLng = Math.sin(dLng / 2);
+            double a = Math.pow(sindLat, 2) + Math.pow(sindLng, 2)
+                    * Math.cos(Math.toRadians(loc.get(0))) * Math.cos(Math.toRadians(barloc.get(0)));
+            double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            double distdouble = earthRadius * c;
+            int dist = (int) distdouble;
+        }catch (IOException ie){
+            ie.printStackTrace();
+        }
+
+
+
+
+
+
+
+
+        }
 
     public View.OnClickListener photoOnClick = new View.OnClickListener() {
         @Override
@@ -227,6 +254,7 @@ public class VenueActivity extends Activity {
     public void infoScreen(View view) {
         //Toast toast = Toast.makeText(this, "Test", Toast.LENGTH_LONG);
         // toast.show();
+
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                 this);
 
@@ -249,6 +277,8 @@ public class VenueActivity extends Activity {
 
         // show it
         alertDialog.show();
+
+
     }
 
     //Deletes photos and videos from /sdcard/ after the picutre or video has been uploaded
