@@ -23,6 +23,7 @@ import android.widget.MediaController;
 import android.widget.PopupMenu;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import java.io.BufferedReader;
@@ -33,6 +34,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Calendar;
+
 
 /**
  * Created by junker4ce on 15-02-12.
@@ -326,6 +328,11 @@ public class VenueActivity extends Activity {
             imageView.setImageURI(imageUri);
             imageView.setVisibility(ImageView.VISIBLE);
         }
+    }
+
+    @Override
+    public void onBackPressed(){
+        finish();
     }
 
 

@@ -197,6 +197,7 @@ public class MainActivity extends FragmentActivity implements
     @Override
     protected void onResume() {
         super.onResume();
+        actionBar.setSelectedNavigationItem(0);
         mRunning = true;
         // start first run by hand
         mHandler.post(mUpdater);
