@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.support.v4.app.NavUtils;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,8 +45,10 @@ public class VenueActivity extends Activity {
     private ArrayList<CharSequence> spinnerArray;
     private Spinner spinner;
     private ListView commentList;
+    private VenueCommentsAdapter commentAdapter;
     private String venue_id;
     private String name;
+    private SwipeRefreshLayout swipeLayout;
     private EditText eText;
     private Button btn;
     private Button pictureBtn;
@@ -65,6 +69,25 @@ public class VenueActivity extends Activity {
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_venue);
+
+        swipeLayout = (SwipeRefreshLayout) findViewById(R.id.commentsSwipe);
+        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeLayout.setRefreshing(true);
+                refreshComments();
+                ( new Handler()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeLayout.setRefreshing(false);
+                    }
+                }, 3000);
+            }
+        });
+        swipeLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
 
         eText = (EditText) findViewById(R.id.postText);
         btn = (Button) findViewById(R.id.postButton);
@@ -140,6 +163,10 @@ public class VenueActivity extends Activity {
         }); // (optional)
 
         //Comment ListView
+        commentList = (ListView) findViewById(R.id.venueCommentList);
+        commentAdapter = new VenueCommentsAdapter(this, venue_id);
+        commentAdapter.notifyDataSetChanged();
+        commentAdapter.setObjectsPerPage(10);
         refreshComments();
     }
 
@@ -254,10 +281,6 @@ public class VenueActivity extends Activity {
     }
 
     private void refreshComments() {
-        commentList = (ListView) findViewById(R.id.venueCommentList);
-        VenueCommentsAdapter commentAdapter = new VenueCommentsAdapter(this, venue_id);
-        commentAdapter.notifyDataSetChanged();
-        commentAdapter.setObjectsPerPage(10);
         commentList.setAdapter(commentAdapter);
         // commentAdapter.notifyDataSetChanged();
     }
@@ -334,6 +357,5 @@ public class VenueActivity extends Activity {
     public void onBackPressed(){
         finish();
     }
-
 
 }

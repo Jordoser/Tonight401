@@ -5,24 +5,20 @@
     android:orientation="vertical"
     android:background="#dddddd" >
 
-    <TextView
-        android:id="@android:id/empty"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </TextView>
-    <ListView
-        android:id="@+id/venueCommentListAll"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/venueCommentsSwipe"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#dddddd"
-        android:divider="@android:color/black"
-        android:dividerHeight="2sp"
-        android:textColor="@color/pink"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_below="@+id/imageView">
-    </ListView>
+        <ListView
+            android:id="@+id/venueCommentListAll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#dddddd"
+            android:divider="@android:color/black"
+            android:dividerHeight="2sp"
+            android:textColor="@color/pink"/>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <ImageView
         android:layout_width="800dp"
@@ -32,6 +28,5 @@
         android:id="@+id/imageView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
-
 
 </RelativeLayout>
