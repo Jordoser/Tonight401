@@ -119,24 +119,6 @@
             android:textColor="#000000"></ListView>
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/photo"
-        android:layout_width="wrap_content"
-        android:layout_height="250dp"
-        android:adjustViewBounds="true"
-        android:layout_gravity="end"
-        android:background="@android:color/transparent"
-        android:visibility="gone" />
-
-    <VideoView
-        android:id="@+id/video"
-        android:layout_width="wrap_content"
-        android:layout_height="250dp"
-        android:adjustViewBounds="true"
-        android:layout_gravity="end"
-        android:background="@android:color/transparent"
-        android:visibility="gone" />
-
     <LinearLayout
         android:id="@+id/WriteCommentWall"
         android:layout_width="fill_parent"
@@ -154,19 +136,12 @@
             android:hint="Write a post....   "
             android:inputType="textMultiLine|textAutoCorrect" />
 
-        <Button
-            android:id="@+id/postButton"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_gravity="bottom"
-            android:text="Post" />
-
-        <Button
-            android:id="@+id/pictureButton"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_gravity="bottom"
-            android:text="Attach" />
+        <!--<Button-->
+            <!--android:id="@+id/postButton"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="fill_parent"-->
+            <!--android:layout_gravity="bottom"-->
+            <!--android:text="Post" />-->
 
     </LinearLayout>
 

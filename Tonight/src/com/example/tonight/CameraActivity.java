@@ -10,8 +10,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import java.io.File;
@@ -86,19 +86,34 @@ public class CameraActivity extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        String path = Environment.getExternalStorageDirectory().getAbsolutePath();
+
         if (resultCode == RESULT_CANCELED) { //Back Button pressed, no photos were taken
             this.finish();
         }
+
         switch (requestCode) {
             case ACTION_TAKE_PHOTO_B: {
                 if (resultCode == RESULT_OK) {
                     this.finish();
+                } else if (resultCode == RESULT_CANCELED) {
+                    File photo = new File(path + "/photo.mp4");
+                    boolean deletePhoto = photo.delete();
+                    Toast.makeText(getApplicationContext(),
+                            "Photo Capture Cancelled", Toast.LENGTH_SHORT)
+                            .show();
                 }
                 break;
             }
             case ACTION_TAKE_VIDEO: {
                 if (resultCode == RESULT_OK) {
                     this.finish();
+                } else if (resultCode == RESULT_CANCELED) {
+                    File video = new File(path + "/video.mp4");
+                    boolean deleteVideo = video.delete();
+                    Toast.makeText(getApplicationContext(),
+                            "Video Capture Cancelled", Toast.LENGTH_SHORT)
+                            .show();
                 }
                 break;
             }

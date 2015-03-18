@@ -47,17 +47,11 @@ public class VenueActivity extends Activity {
     private String name;
     private EditText eText;
     private Button btn;
-    private Button pictureBtn;
-    private ImageView imageView;
-    private VideoView videoView;
-    private int MEDIA_TYPE;
+
     private int dist;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //Delete Photo and or Video
-        deleteLocalMedia();
 
         Calendar calendar = Calendar.getInstance();
         int day = calendar.get(Calendar.DAY_OF_WEEK);
@@ -65,24 +59,32 @@ public class VenueActivity extends Activity {
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_venue);
-
         eText = (EditText) findViewById(R.id.postText);
-        btn = (Button) findViewById(R.id.postButton);
 
-        btn.setOnClickListener(new View.OnClickListener() {
+        eText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String str = eText.getText().toString();
-                postMessage(str);
+
+                startActivity(new Intent(VenueActivity.this, CommentActivity.class));
+                overridePendingTransition(R.anim.slide_in_top, R.anim.slide_out_top);
+
             }
+
         });
 
-        //onClick Listener to camera
-        pictureBtn = (Button) findViewById(R.id.pictureButton);
-        pictureBtn.setOnClickListener(photoOnClick);
+//        btn = (Button) findViewById(R.id.postButton);
+//
+//        btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String str = eText.getText().toString();
+//                postMessage(str);
+//            }
+//        });
+
+
 
         FileInputStream fis = null;
-        //Context context = this;
         try {
             fis = this.openFileInput("screenName");
             BufferedReader in = new BufferedReader(new InputStreamReader(
@@ -147,19 +149,7 @@ public class VenueActivity extends Activity {
     public void onResume() {
         super.onResume();
 
-        imageView = (ImageView) findViewById(R.id.photo);
-        videoView = (VideoView) findViewById(R.id.video);
-        imageView.setImageURI(null);
-        videoView.setVideoURI(null);
-
-        String path = Environment.getExternalStorageDirectory().getAbsolutePath();
-
-        if (MEDIA_TYPE == 1) {
-            handlePicture(path);
-        } else if (MEDIA_TYPE == 2) {
-            handleVideo(path);
-        }
-
+        refreshComments();
 
         GeoLoc gl = new GeoLoc(this);
         try {
@@ -186,42 +176,7 @@ public class VenueActivity extends Activity {
         }
         Log.d("dist =",String.valueOf(dist));
 
-
-
-
-
-
-
-
         }
-
-    public View.OnClickListener photoOnClick = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-
-            PopupMenu popup = new PopupMenu(VenueActivity.this, pictureBtn);
-
-            popup.getMenuInflater().inflate(R.menu.camera_popup, popup.getMenu());
-
-            popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                public boolean onMenuItemClick(MenuItem item) {
-                    MEDIA_TYPE = 0;
-                    if (String.valueOf(item.getTitle()).equals("Photo")) {
-                        MEDIA_TYPE = 1;
-
-                    } else if (String.valueOf(item.getTitle()).equals("Video")) {
-                        MEDIA_TYPE = 2;
-                    }
-                    Intent intent = new Intent(VenueActivity.this, CameraActivity.class);
-                    intent.putExtra("media_type", String.valueOf(MEDIA_TYPE));
-
-                    startActivity(intent);
-                    return true;
-                }
-            });
-            popup.show();
-        }
-    };
 
 
     //Back Button at the top left corner
@@ -240,17 +195,6 @@ public class VenueActivity extends Activity {
         spinner.setSelection(position);
         String selState = (String) spinner.getSelectedItem();
         Log.e("Here", selState);
-    }
-
-    public void postMessage(String post) {
-        String barId = VenueHolder.getBarID();
-        ParseOperations.addComment(barId, post, name);
-        if (getCurrentFocus() != null) {
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-        }
-        eText.setText("");
-        refreshComments();
     }
 
     private void refreshComments() {
@@ -290,44 +234,6 @@ public class VenueActivity extends Activity {
         alertDialog.show();
 
 
-    }
-
-    //Deletes photos and videos from /sdcard/ after the picutre or video has been uploaded
-
-    public void deleteLocalMedia() {
-        String path = Environment.getExternalStorageDirectory().getAbsolutePath();
-        File photo = new File(path + "/photo.jpg");
-        photo.delete();
-        File video = new File(path + "/video.mp4");
-        video.delete();
-    }
-
-    public void handleVideo(String path) {
-        imageView.setVisibility(ImageView.GONE);
-
-        File file = new File(path + "/video.mp4");
-        if (file.exists()) {
-            videoView.setVisibility(VideoView.VISIBLE);
-            MediaController mc = new MediaController(this);
-            mc.setAnchorView(videoView);
-            mc.setMediaPlayer(videoView);
-            videoView.setMediaController(mc);
-            videoView.setVideoPath(path + "/video.mp4");
-            videoView.requestFocus();
-
-            videoView.start();
-        }
-    }
-
-    public void handlePicture(String path) {
-        videoView.setVisibility(VideoView.GONE);
-        File file = new File(path + "/photo.jpg");
-        Uri imageUri = Uri.fromFile(file);
-        if (file.exists()) {
-            imageView.setImageURI(null);
-            imageView.setImageURI(imageUri);
-            imageView.setVisibility(ImageView.VISIBLE);
-        }
     }
 
     @Override
