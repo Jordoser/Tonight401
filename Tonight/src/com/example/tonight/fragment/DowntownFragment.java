@@ -1,7 +1,9 @@
 package com.example.tonight.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,7 @@ import com.example.tonight.VenueListController;
  */
 public class DowntownFragment extends Fragment {
     private ListView listview;
+    private SwipeRefreshLayout swipeLayout;
     MainCommentsAdapter adapter;
 
     @Override
@@ -30,6 +33,27 @@ public class DowntownFragment extends Fragment {
         if (listview != null) {
             listview.setAdapter(adapter);
         }
+
+        //Allows for refresh on swipe up
+        swipeLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.venueCommentsSwipe);
+        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeLayout.setRefreshing(true);
+                listview.setAdapter(adapter);
+                ( new Handler()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeLayout.setRefreshing(false);
+                    }
+                }, 1000);
+            }
+        });
+        swipeLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
 
         return rootView;
     }
