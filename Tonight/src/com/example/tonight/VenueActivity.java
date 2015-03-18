@@ -48,8 +48,6 @@ public class VenueActivity extends Activity {
     private EditText eText;
     private Button btn;
 
-    private int dist;
-
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -151,32 +149,7 @@ public class VenueActivity extends Activity {
 
         refreshComments();
 
-        GeoLoc gl = new GeoLoc(this);
-        try {
-            ArrayList<Double> loc = gl.findLocation();
-            ArrayList<Double> barloc = VenueHolder.getGeoPoint();
-            double earthRadius = 6371.0;
-            double dLat = Math.toRadians(barloc.get(0) - loc.get(0));
-            double dLng = Math.toRadians(barloc.get(1) - loc.get(1));
-            double sindLat = Math.sin(dLat / 2);
-            double sindLng = Math.sin(dLng / 2);
-            double a = Math.pow(sindLat, 2) + Math.pow(sindLng, 2)
-                    * Math.cos(Math.toRadians(loc.get(0))) * Math.cos(Math.toRadians(barloc.get(0)));
-            double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-            double distdouble = earthRadius * c;
-            dist = (int) distdouble;
-            LinearLayout posting = (LinearLayout) findViewById(R.id.WriteCommentWall);
-            if (dist < 15){
-                posting.setVisibility(LinearLayout.VISIBLE);
-            }else{
-                posting.setVisibility(LinearLayout.GONE);
-            }
-        }catch (IOException ie){
-            ie.printStackTrace();
-        }
-        Log.d("dist =",String.valueOf(dist));
-
-        }
+    }
 
 
     //Back Button at the top left corner

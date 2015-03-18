@@ -19,6 +19,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +29,8 @@ import com.parse.ParseFile;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Created by David on 2015-03-13.
@@ -46,6 +49,8 @@ public class CommentActivity extends Activity {
     private ImageView imageView;
     private VideoView videoView;
     private EditText editText;
+
+    private int dist;
 
     private int MEDIA_TYPE;
 
@@ -132,6 +137,31 @@ public class CommentActivity extends Activity {
         videoView.setVideoURI(null);
 
         String path = Environment.getExternalStorageDirectory().getAbsolutePath();
+
+        GeoLoc gl = new GeoLoc(this);
+        try {
+            ArrayList<Double> loc = gl.findLocation();
+            ArrayList<Double> barloc = VenueHolder.getGeoPoint();
+            double earthRadius = 6371.0;
+            double dLat = Math.toRadians(barloc.get(0) - loc.get(0));
+            double dLng = Math.toRadians(barloc.get(1) - loc.get(1));
+            double sindLat = Math.sin(dLat / 2);
+            double sindLng = Math.sin(dLng / 2);
+            double a = Math.pow(sindLat, 2) + Math.pow(sindLng, 2)
+                    * Math.cos(Math.toRadians(loc.get(0))) * Math.cos(Math.toRadians(barloc.get(0)));
+            double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            double distdouble = earthRadius * c;
+            dist = (int) distdouble;
+            LinearLayout posting = (LinearLayout) findViewById(R.id.addMedia);
+            if (dist < 15){
+                posting.setVisibility(LinearLayout.VISIBLE);
+            }else{
+                posting.setVisibility(LinearLayout.GONE);
+            }
+        }catch (IOException ie){
+            ie.printStackTrace();
+        }
+        Log.d("dist =",String.valueOf(dist));
 
         if (MEDIA_TYPE == 1) {
             handlePicture(path);

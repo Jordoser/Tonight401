@@ -8,11 +8,9 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
-import com.parse.GetCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseFile;
-import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
@@ -27,17 +25,15 @@ import java.util.List;
  * Created by Tarek on 2015-02-10.
  */
 public class ParseOperations extends ParseObject {
-    public static ArrayList<ParseObject> listVenues= new ArrayList<ParseObject>();
+    public static ArrayList<ParseObject> listVenues = new ArrayList<ParseObject>();
     public static String venue_name = new String();
     public static String venueInfo = new String();
-    public static ArrayList<String> hoursList= new ArrayList<String>();
-    public static ArrayList<String> specList= new ArrayList<String>();
+    public static ArrayList<String> hoursList = new ArrayList<String>();
+    public static ArrayList<String> specList = new ArrayList<String>();
     public static ArrayList<Bitmap> logos = new ArrayList<Bitmap>();
-    public static ParseGeoPoint gp = new ParseGeoPoint();
-    public static int totalLikes;
 
 
-    public static void getVenues(){
+    public static void getVenues() {
         listVenues = new ArrayList<ParseObject>();
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Venue");
         query.orderByAscending("barName");
@@ -45,13 +41,13 @@ public class ParseOperations extends ParseObject {
             public void done(List<ParseObject> venueList, ParseException e) {
                 if (e == null) {
                     Log.d("score", "Retrieved " + venueList.size() + " bars");
-                    for (ParseObject venue:venueList) {
+                    for (ParseObject venue : venueList) {
                         System.out.println(venue.get("barName").toString());
                         listVenues.add(venue);
                         System.out.println("Added Venue");
 
-                        ParseFile imgFile = (ParseFile)venue.get("barLogo");
-                        if(imgFile != null){
+                        ParseFile imgFile = (ParseFile) venue.get("barLogo");
+                        if (imgFile != null) {
                             try {
                                 byte[] data = imgFile.getData();
                                 Bitmap bMap = BitmapFactory.decodeByteArray(data, 0, data.length);
@@ -60,8 +56,9 @@ public class ParseOperations extends ParseObject {
                                 // TODO Auto-generated catch block
                                 e2.printStackTrace();
                             }
+                        } else {
+                            logos.add(null);
                         }
-                        else{logos.add(null);}
                     }
                     VenueListController.setVenueList(listVenues, logos);
                 } else {
@@ -75,7 +72,7 @@ public class ParseOperations extends ParseObject {
 
     public static void getName(String id) {
         venue_name = new String();
-        hoursList= new ArrayList<String>();
+        hoursList = new ArrayList<String>();
         specList = new ArrayList<String>();
         venueInfo = new String();
         VenueHolder.setBarID(id);
@@ -132,7 +129,6 @@ public class ParseOperations extends ParseObject {
                         }
 
 
-
                         if (venue.get("SunSpec") != null) {
                             specList.add(venue.get("SunSpec").toString());
                         } else {
@@ -169,30 +165,21 @@ public class ParseOperations extends ParseObject {
                             specList.add("None");
                             Log.d("score", "specials added");
                         }
-                        if (venue.get("location") != null){
-                            gp = (ParseGeoPoint)venue.get("location");
-                        }else{
-                            ParseGeoPoint error = new ParseGeoPoint();
-                            error.setLatitude(0);
-                            error.setLongitude(0);
-                            gp = error;
-                        }
 
                     }
                     VenueHolder.setListSpecials(specList);
                     VenueHolder.setBarName(venue_name);
                     VenueHolder.setListHours(hoursList);
                     VenueHolder.setInfo(venueInfo);
-                    VenueHolder.setGeoPoint(gp);
                 } else {
                     Log.d("score", "Error: " + e.getMessage());
                     //listVenues.add("Error");
                 }
             }
         });
-}
+    }
 
-    public static void addComment(String barID, String comment, String username){
+    public static void addComment(String barID, String comment, String username) {
         ParseObject commentObject = new ParseObject("Comments");
         Boolean saved;
         commentObject.put("barId", barID);
@@ -200,17 +187,6 @@ public class ParseOperations extends ParseObject {
         commentObject.put("user", username);
         commentObject.put("likes", 0);
         commentObject.put("dislikes", 0);
-        //commentObject.saveInBackground(new SaveCallback() {
-        //   public void done(ParseException e) {
-        //        if(e == null){
-        //            Log.d("score", "Comment was uploaded to Parse");
-        //        }
-        //        else {
-        //            Log.d("score", "Error: " + e.getMessage());
-        //            //listVenues.add("Error");
-        //        }
-        //    }
-        //});
         try {
             commentObject.save();
             Log.d("score", "Comment was uploaded to Parse");
@@ -218,43 +194,5 @@ public class ParseOperations extends ParseObject {
             Log.d("score", "Error: " + e.getMessage());
             //e.printStackTrace();
         }
-    }
-
-    //public static ArrayList<String> returnList(){
-    //    Log.d("score", "Retrieved " + listVenues.size() + " Foster");
-    //    return listVenues;
-    //}
-    public static void increment(String column, ParseObject point) {
-        // Increment the current value of the quantity key by 1
-        point.increment(column);
-        // Save
-        point.saveInBackground(new SaveCallback() {
-            public void done(ParseException e) {
-                if (e == null) {
-                    // Saved successfully.
-                } else {
-                    // The save failed.
-                }
-            }
-        });
-
-    }
-
-    public static String newTotalLikes(String Id,int likes) {
-        totalLikes=likes;
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Comments");
-        query.whereEqualTo("objectId", Id);
-        query.getFirstInBackground(new GetCallback<ParseObject>() {
-            public void done(ParseObject object, ParseException e) {
-                if (object == null) {
-                    Log.d("score", "The getFirst request failed.");
-                } else {
-                    int dislikes = object.getInt("dislikes");
-                    int likes = object.getInt("likes");
-                    totalLikes=likes-dislikes;
-                }
-            }
-        });
-        return Integer.toString(totalLikes);
     }
 }

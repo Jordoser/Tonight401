@@ -48,6 +48,7 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/addMedia"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true">
