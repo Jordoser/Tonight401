@@ -17,13 +17,8 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="app: com.example.tonight" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bba9321a-6f1c-439e-a017-a3cae41148d6" name="Default" comment="Moved the gps to the comment activity. You may now only post photos and videos if near the venue location.">
+    <list default="true" id="bba9321a-6f1c-439e-a017-a3cae41148d6" name="Default" comment="">
       <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tonight/res/drawable-hdpi/down_arrow.png" afterPath="$PROJECT_DIR$/Tonight/res/drawable-hdpi/down_arrow.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tonight/res/drawable-hdpi/up_arrow.png" afterPath="$PROJECT_DIR$/Tonight/res/drawable-hdpi/up_arrow.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tonight/src/com/example/tonight/ParseOperations.java" afterPath="$PROJECT_DIR$/Tonight/src/com/example/tonight/ParseOperations.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tonight/res/layout/comment_item.xml" afterPath="$PROJECT_DIR$/Tonight/res/layout/comment_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tonight/res/layout/comment_item_main.xml" afterPath="$PROJECT_DIR$/Tonight/res/layout/comment_item_main.xml" />
     </list>
     <ignored path="Tonight401.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -460,7 +455,11 @@
       <created>1426716923160</created>
       <updated>1426716923160</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Added upvote and downvote arrows">
+      <created>1426829063665</created>
+      <updated>1426829063665</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -513,7 +512,8 @@
     </option>
     <MESSAGE value="Re-added David commit after deleting it. &#10;Still need camera.xml files and uncomment lines in venue activity and CameraActivity. &#10;Also added null check in fragments to prevent strange error we were receiving from the listview in each activity." />
     <MESSAGE value="Moved the gps to the comment activity. You may now only post photos and videos if near the venue location." />
-    <option name="LAST_COMMIT_MESSAGE" value="Moved the gps to the comment activity. You may now only post photos and videos if near the venue location." />
+    <MESSAGE value="Added upvote and downvote arrows" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added upvote and downvote arrows" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
