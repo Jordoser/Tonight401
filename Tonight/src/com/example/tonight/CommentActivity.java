@@ -69,6 +69,7 @@ public class CommentActivity extends Activity {
 
         //Write Comment box
         editText = (EditText) findViewById(R.id.commentText);
+        editText.setHint("What's on your mind, " + loadScreenName() + "?");
 
         //Post Button Post comment (upload to Parse)
         postButton = (Button) mCustomView.findViewById(R.id.postButton1);
@@ -86,8 +87,8 @@ public class CommentActivity extends Activity {
 
 
         //Set screen name at the top
-        mTitleTextView = (TextView) mCustomView.findViewById(R.id.title_text);
-        mTitleTextView.setText("Screenname: " + loadScreenName());
+        //mTitleTextView = (TextView) mCustomView.findViewById(R.id.title_text);
+        //mTitleTextView.setText("Screenname: " + loadScreenName());
 
         //Button and Listener for photos and videos
         takeVid = (Button) findViewById(R.id.takeVideo);

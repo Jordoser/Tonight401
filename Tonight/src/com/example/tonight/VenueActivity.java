@@ -48,6 +48,7 @@ public class VenueActivity extends Activity {
     private VenueCommentsAdapter commentAdapter;
     private String venue_id;
     private String name;
+    private ScreenName screenname;
     private SwipeRefreshLayout swipeLayout;
     private EditText eText;
     private Button btn;
@@ -82,7 +83,11 @@ public class VenueActivity extends Activity {
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
 
+        screenname = null;
+        screenname.load(this);
+
         eText = (EditText) findViewById(R.id.postText);
+        eText.setHint("What's on your mind, " + screenname.getName() + "?");
 
         eText.setOnClickListener(new View.OnClickListener() {
             @Override
