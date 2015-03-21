@@ -127,6 +127,7 @@ public class MainCommentsAdapter extends ParseQueryAdapter<ParseObject>{
         likes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                likes.setBackgroundDrawable(getContext().getResources().getDrawable(R.drawable.like_button_selector));
                 ParseOperations.increment("likes",object);
                 String total=ParseOperations.newTotalLikes(object.getString("objectId"),object.getInt("likes") - object.getInt("dislikes"));
                 likesTextView.setText(total);
@@ -137,6 +138,7 @@ public class MainCommentsAdapter extends ParseQueryAdapter<ParseObject>{
         disLikes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                disLikes.setBackgroundDrawable(getContext().getResources().getDrawable(R.drawable.dislike_button_selector));
                 ParseOperations.increment("dislikes",object);
                 String total=ParseOperations.newTotalLikes(object.getString("objectId"),object.getInt("likes") - object.getInt("dislikes"));
                 likesTextView.setText(total);
