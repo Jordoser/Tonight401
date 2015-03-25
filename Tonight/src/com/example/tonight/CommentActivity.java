@@ -211,20 +211,26 @@ public class CommentActivity extends Activity {
     }
 
     //Prepares videos and images for Parse
-    public void prepareForParse(String type){
+    public ParseFile prepareForParse(){
         String path = Environment.getExternalStorageDirectory().getAbsolutePath();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         ParseFile parseFile = null;
 
-        if(type.equals("photo")){
+        if(MEDIA_TYPE == 1){
             Bitmap bitmap = BitmapFactory.decodeFile(path+"/photo.jpg");
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         }
-        else{
+        else if(MEDIA_TYPE == 2){
 
         }
+        else{
+            //Post null image
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.pixel);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        }
         byte [] image = stream.toByteArray();
-        parseFile = new ParseFile("File", image);
+        return new ParseFile("File", image);
+
     }
 
     public String loadScreenName() {
@@ -236,7 +242,8 @@ public class CommentActivity extends Activity {
 
     public void postMessage(String post) {
         String barId = VenueHolder.getBarID();
-        ParseOperations.addComment(barId, post, name);
+        ParseFile media = prepareForParse();
+        ParseOperations.addComment(barId, post, name, media);
         if (getCurrentFocus() != null) {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);

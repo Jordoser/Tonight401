@@ -192,7 +192,7 @@ public class ParseOperations extends ParseObject {
         });
     }
 
-    public static void addComment(String barID, String comment, String username){
+    public static void addComment(String barID, String comment, String username, ParseFile photo){
         ParseObject commentObject = new ParseObject("Comments");
         Boolean saved;
         commentObject.put("barId", barID);
@@ -200,6 +200,7 @@ public class ParseOperations extends ParseObject {
         commentObject.put("user", username);
         commentObject.put("likes", 0);
         commentObject.put("dislikes", 0);
+        commentObject.put("photo", photo);
 
         try {
             commentObject.save();

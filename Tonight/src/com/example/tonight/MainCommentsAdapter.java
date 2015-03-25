@@ -123,7 +123,7 @@ public class MainCommentsAdapter extends ParseQueryAdapter<ParseObject>{
         String venueName = VenueListController.getVenueName(object.getString("barId"));
         barNameTextView.setText("@" + venueName);
 
-        final ImageButton likes= (ImageButton) v.findViewById(R.id.likeButton);
+        final ImageButton likes = (ImageButton) v.findViewById(R.id.likeButton);
         likes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -134,7 +134,7 @@ public class MainCommentsAdapter extends ParseQueryAdapter<ParseObject>{
             }
         });
 
-        final ImageButton disLikes= (ImageButton) v.findViewById(R.id.dislikeButton);
+        final ImageButton disLikes = (ImageButton) v.findViewById(R.id.dislikeButton);
         disLikes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
