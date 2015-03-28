@@ -9,9 +9,9 @@
         android:title="@string/action_settings"
         app:showAsAction="never"/>
 
-    <item android:id="@+id/userName"
-        android:icon="@drawable/ic_menu_edit"
-        android:title="@string/userName"
-        android:showAsAction="ifRoom" />
+    <!--<item android:id="@+id/userName"-->
+        <!--android:icon="@drawable/ic_menu_edit"-->
+        <!--android:title="@string/userName"-->
+        <!--android:showAsAction="ifRoom" />-->
 
 </menu>

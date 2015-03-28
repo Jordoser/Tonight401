@@ -1,7 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="50dp">
+
+    <TextView
+        android:id="@+id/screenname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/editScreenName"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#000"/>
+
+    <ImageView
+        android:id="@+id/editScreenName"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="8dp"
+        android:src="@drawable/ic_action_labels" />
+
     <Button
         android:id="@+id/postButton1"
         android:layout_width="wrap_content"
@@ -12,5 +30,6 @@
         android:background="@color/pink"
         android:text="Post!"
         android:textColor="@android:color/white" />
+
 
 </RelativeLayout>

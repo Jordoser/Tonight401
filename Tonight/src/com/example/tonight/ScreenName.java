@@ -3,8 +3,8 @@ package com.example.tonight;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.text.InputFilter;
 import android.widget.EditText;
-
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -18,6 +18,7 @@ public class ScreenName {
 
     public static void save(Context context, String string) {
         FileOutputStream outputStream;
+
         try {
             outputStream = context.openFileOutput(filename, context.MODE_PRIVATE);
             outputStream.write(string.getBytes());
@@ -47,17 +48,27 @@ public class ScreenName {
     public static void alert(final Context context){
         load(context);
         AlertDialog.Builder alert = new AlertDialog.Builder(context);
-
         alert.setTitle("Current Name: "+name);
         alert.setMessage("Change Name: ");
 
         final EditText input = new EditText(context);
+
+        //Set Max Length of user input
+        int maxLength = 20;
+        InputFilter[] FilterArray = new InputFilter[1];
+        FilterArray[0] = new InputFilter.LengthFilter(maxLength);
+        input.setFilters(FilterArray);
+
         alert.setView(input);
 
         alert.setPositiveButton("Change", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-                String value = input.getText().toString();
-                save(context,value);
+
+                String value = input.getText().toString().trim();
+                if(value == null || value.isEmpty()){
+                    save(context, name);
+                }
+                else save(context,value);
             }
         });
 

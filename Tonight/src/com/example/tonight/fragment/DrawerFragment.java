@@ -328,9 +328,9 @@ public class DrawerFragment extends Fragment {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
-        else if(item.getItemId()==(R.id.userName)){
-            ScreenName.alert(getActivity());
-        }
+//        else if(item.getItemId()==(R.id.userName)){
+//            ScreenName.alert(getActivity());
+//        }
         return super.onOptionsItemSelected(item);
     }
 

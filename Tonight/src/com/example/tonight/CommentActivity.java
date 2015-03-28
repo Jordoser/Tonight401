@@ -9,9 +9,9 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.FileObserver;
 import android.support.v4.app.NavUtils;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,24 +40,26 @@ public class CommentActivity extends Activity {
     private ActionBar mActionBar;
     private View mCustomView;
 
-    private ScreenName screenname;
+    private ScreenName screennameObject;
     private String name;
     private Button takePic;
     private Button takeVid;
     private Button postButton;
-    private TextView mTitleTextView;
     private ImageView imageView;
     private VideoView videoView;
     private EditText editText;
-
+    private ImageView editName;
+    private TextView screenName;
+    private FileObserver observer;
     private int dist;
-
     private int MEDIA_TYPE;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment);
+
+        screennameObject = new ScreenName();
 
         mActionBar = getActionBar();
         mActionBar.setDisplayShowHomeEnabled(false);
@@ -67,9 +69,17 @@ public class CommentActivity extends Activity {
 
         mCustomView = mInflater.inflate(R.layout.comment_actionbar, null);
 
+        //load initial screen name
+        screenName = (TextView) mCustomView.findViewById(R.id.screenname);
+        screenName.setText(loadScreenName());
+
         //Write Comment box
         editText = (EditText) findViewById(R.id.commentText);
         editText.setHint("What's on your mind, " + loadScreenName() + "?");
+
+        //Edit screen name button
+        editName = (ImageView) mCustomView.findViewById(R.id.editScreenName);
+        editName.setOnClickListener(onEditScreenName);
 
         //Post Button Post comment (upload to Parse)
         postButton = (Button) mCustomView.findViewById(R.id.postButton1);
@@ -85,11 +95,6 @@ public class CommentActivity extends Activity {
             }
         });
 
-
-        //Set screen name at the top
-        //mTitleTextView = (TextView) mCustomView.findViewById(R.id.title_text);
-        //mTitleTextView.setText("Screenname: " + loadScreenName());
-
         //Button and Listener for photos and videos
         takeVid = (Button) findViewById(R.id.takeVideo);
         takePic = (Button) findViewById(R.id.takePicture);
@@ -97,10 +102,53 @@ public class CommentActivity extends Activity {
         takePic.setOnClickListener(onClickVideoPhoto);
         takeVid.setOnClickListener(onClickVideoPhoto);
 
+        String path = getApplicationContext().getFilesDir().getAbsolutePath() + "/screenName";
+
+        //Checks if the screenName file has been created. If not create the file and write anonymous to it
+        File screenNameFile = new File(path);
+        if(!screenNameFile.exists()){
+            screennameObject.save(CommentActivity.this, "anonymous");
+        }
+
+        //File Observer. Checks if the file storing screen name has changed or not
+        observer = new FileObserver(path) {
+
+            @Override
+            public void onEvent(int event, String file) {
+                if (event == FileObserver.CLOSE_WRITE) {
+
+                    //Updates Screen name
+                    screenName.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            screenName.setText(loadScreenName());
+                        }
+                    });
+
+                    //Updates hint
+                    editText.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            editText.setHint("What's on your mind, " + loadScreenName() + "?");
+                        }
+                    });
+                }
+            }
+        };
+
+        observer.startWatching();
+
         //Set Custom Actionbar
         mActionBar.setCustomView(mCustomView);
         mActionBar.setDisplayShowCustomEnabled(true);
     }
+
+    public View.OnClickListener onEditScreenName = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            screennameObject.alert(CommentActivity.this);
+        }
+    };
 
     public View.OnClickListener onClickVideoPhoto = new View.OnClickListener() {
         @Override
@@ -123,7 +171,7 @@ public class CommentActivity extends Activity {
     };
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         super.onBackPressed();
         finish();
     }
@@ -154,15 +202,15 @@ public class CommentActivity extends Activity {
             double distdouble = earthRadius * c;
             dist = (int) distdouble;
             LinearLayout posting = (LinearLayout) findViewById(R.id.addMedia);
-            if (dist < 15){
+            if (dist < 15) {
                 posting.setVisibility(LinearLayout.VISIBLE);
-            }else{
+            } else {
                 posting.setVisibility(LinearLayout.GONE);
             }
-        }catch (IOException ie){
+        } catch (IOException ie) {
             ie.printStackTrace();
         }
-        Log.d("dist =",String.valueOf(dist));
+        Log.d("dist =", String.valueOf(dist));
 
         if (MEDIA_TYPE == 1) {
             handlePicture(path);
@@ -211,32 +259,29 @@ public class CommentActivity extends Activity {
     }
 
     //Prepares videos and images for Parse
-    public ParseFile prepareForParse(){
+    public ParseFile prepareForParse() {
         String path = Environment.getExternalStorageDirectory().getAbsolutePath();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         ParseFile parseFile = null;
 
-        if(MEDIA_TYPE == 1){
-            Bitmap bitmap = BitmapFactory.decodeFile(path+"/photo.jpg");
+        if (MEDIA_TYPE == 1) {
+            Bitmap bitmap = BitmapFactory.decodeFile(path + "/photo.jpg");
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-        }
-        else if(MEDIA_TYPE == 2){
+        } else if (MEDIA_TYPE == 2) {
 
-        }
-        else{
+        } else {
             //Post null image
             Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.pixel);
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
         }
-        byte [] image = stream.toByteArray();
+        byte[] image = stream.toByteArray();
         return new ParseFile("File", image);
 
     }
 
     public String loadScreenName() {
-        screenname = null;
-        screenname.load(this);
-        name = screenname.getName();
+        screennameObject.load(this);
+        name = screennameObject.getName();
         return name;
     }
 
@@ -251,12 +296,13 @@ public class CommentActivity extends Activity {
         editText.setText("");
     }
 
-    public void deleteMedia(){
+    public void deleteMedia() {
         String path = Environment.getExternalStorageDirectory().getAbsolutePath();
 
-        File photo = new File(path+"/photo.jpg");
-        File video = new File(path+"/video.mp4");
+        File photo = new File(path + "/photo.jpg");
+        File video = new File(path + "/video.mp4");
         boolean deletePhoto = photo.delete();
         boolean deleteVideo = video.delete();
     }
 }
+

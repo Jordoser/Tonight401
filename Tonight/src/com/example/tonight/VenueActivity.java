@@ -2,38 +2,22 @@ package com.example.tonight;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.support.v4.app.NavUtils;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.MediaController;
-import android.widget.PopupMenu;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.VideoView;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -100,32 +84,6 @@ public class VenueActivity extends Activity {
 
         });
 
-//        btn = (Button) findViewById(R.id.postButton);
-//
-//        btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                String str = eText.getText().toString();
-//                postMessage(str);
-//            }
-//        });
-
-
-
-        FileInputStream fis = null;
-        try {
-            fis = this.openFileInput("screenName");
-            BufferedReader in = new BufferedReader(new InputStreamReader(
-                    fis));
-            name = in.readLine();
-            fis.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-
-        }
-
         TextView barName = (TextView) findViewById(R.id.venueName);
         barName.setText(VenueHolder.getBarName());
         Intent intent = getIntent();
@@ -180,11 +138,9 @@ public class VenueActivity extends Activity {
     @Override
     public void onResume() {
         super.onResume();
-
+        eText.setHint("What's on your mind, " + screenname.getName() + "?");
         refreshComments();
-
     }
-
 
     //Back Button at the top left corner
     @Override

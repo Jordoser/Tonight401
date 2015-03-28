@@ -42,8 +42,7 @@
             android:windowSoftInputMode="stateHidden">
         </activity>
         <activity android:name=".CameraActivity" />
-        <activity android:name=".CommentActivity"
-            android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".CommentActivity"/>
     </application>
 
 </manifest>
