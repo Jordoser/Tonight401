@@ -81,20 +81,8 @@ public class DrawerAdapter extends BaseAdapter {
         mViewHolder.ivIcon = (ImageView) convertView
                 .findViewById(R.id.barLogo);
 
-
         mViewHolder.tvTitle.setText(titles.get(position));
         mViewHolder.ivIcon.setImageBitmap(logos.get(position));
-
-        //mViewHolder.ivIcon.setImageResource(images[position]);
-
-        /*//Highlight the selected list item
-        if (position == selectedPosition[0]) {
-            convertView.setBackgroundColor(Color.WHITE);
-            mViewHolder.tvTitle.setTextColor(Color.BLUE);
-        } else {
-            convertView.setBackgroundColor(Color.TRANSPARENT);
-            mViewHolder.tvTitle.setTextColor(Color.WHITE);
-        }*/
 
         return convertView;
     }

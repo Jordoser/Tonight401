@@ -135,41 +135,27 @@ public class DrawerFragment extends Fragment {
                     }*/
                     public void onItemClick(AdapterView parent, View view, int position, long id) {
                         final int pos = position;
-                        //final ListView lv = (ListView) view;
-                        //final TextView tv = (TextView) lv.findViewById(position);
-                        //tv.setTextColor(getResources().getColor(R.color.white));
-
                         ParseOperations.getName(mVenueIds.get(pos));
 
                         Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             public void run() {
-                                //tv.setTextColor(getResources().getColor(R.color.pink));
                                 Intent intent = new Intent(getActivity(), VenueActivity.class);
                                 intent.putExtra("venue_id", mVenueIds.get(pos));
                                 startActivity(intent);
-                                //getActivity().overridePendingTransition(R.anim.left_slide_in, R.anim.right_slide_out);
+                                getActivity().overridePendingTransition(R.anim.left_slide_in, R.anim.right_slide_out);
                             }
                         }, 750);
 
                     }
                 });
 
-        /*titles = new String[] { getString(R.string.title_section1),
-                getString(R.string.title_section2),
-                getString(R.string.title_section3) };*/
-//        images = new int[] { R.drawable.home_blue, R.drawable.mail_yellow,
-//                R.drawable.settings_yellow };
         mVenueNames = VenueListController.returnVenues();
         mVenueIds = VenueListController.returnVenueIds();
         mLogos = (VenueListController.getVenueLogos());
 
         mDrawerAdapter = new DrawerAdapter(getActivity(), mVenueNames, mLogos);
-
-//        mDrawerAdapter = new DrawerAdapter(getActivity(), titles, images,
-//                selectedPosition);
         mDrawerList.setAdapter(mDrawerAdapter);
-        //mDrawerList.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerList;
     }
 
