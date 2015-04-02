@@ -34,8 +34,7 @@ public class ParseOperations extends ParseObject {
     public static ArrayList<String> specList= new ArrayList<String>();
     public static ArrayList<Bitmap> logos = new ArrayList<Bitmap>();
     public static ParseGeoPoint gp = new ParseGeoPoint();
-    public static int totalLikes;
-
+    public static Integer totalLikes, totalDislikes;
 
     public static void getVenues(){
         listVenues = new ArrayList<ParseObject>();
@@ -228,8 +227,8 @@ public class ParseOperations extends ParseObject {
 
     }
 
-    public static String newTotalLikes(String Id,int likes) {
-        totalLikes=likes;
+    public static String newLikes(String Id, int likes) {
+        totalLikes = likes;
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Comments");
         query.whereEqualTo("objectId", Id);
         query.getFirstInBackground(new GetCallback<ParseObject>() {
@@ -237,12 +236,26 @@ public class ParseOperations extends ParseObject {
                 if (object == null) {
                     Log.d("score", "The getFirst request failed.");
                 } else {
-                    int dislikes = object.getInt("dislikes");
-                    int likes = object.getInt("likes");
-                    totalLikes=likes-dislikes;
+                    totalLikes = object.getInt("likes");
                 }
             }
         });
         return Integer.toString(totalLikes);
+    }
+
+    public static String newDislikes(String Id, int dislikes) {
+        totalDislikes = dislikes;
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Comments");
+        query.whereEqualTo("objectId", Id);
+        query.getFirstInBackground(new GetCallback<ParseObject>() {
+            public void done(ParseObject object, ParseException e) {
+                if (object == null) {
+                    Log.d("score", "The getFirst request failed.");
+                } else {
+                    totalDislikes = object.getInt("dislikes");
+                }
+            }
+        });
+        return Integer.toString(totalDislikes);
     }
 }

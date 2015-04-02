@@ -114,34 +114,37 @@ public class MainCommentsAdapter extends ParseQueryAdapter<ParseObject>{
         TextView commentTextView = (TextView) v.findViewById(R.id.comment_text_main);
         commentTextView.setText(object.getString("commentText"));
 
-        Integer totalLikes = object.getInt("likes") - object.getInt("dislikes");
+        Integer likes = object.getInt("likes");
+        Integer dislikes = object.getInt("dislikes");
         final TextView likesTextView = (TextView) v.findViewById(R.id.likes_main);
-        likesTextView.setText(totalLikes.toString());
+        likesTextView.setText(likes.toString());
+        final TextView dislikesTextView = (TextView) v.findViewById(R.id.dislikes_main);
+        dislikesTextView.setText(dislikes.toString());
 
 
         TextView barNameTextView = (TextView) v.findViewById(R.id.bar_name_main);
         String venueName = VenueListController.getVenueName(object.getString("barId"));
         barNameTextView.setText("@" + venueName);
 
-        final ImageButton likes = (ImageButton) v.findViewById(R.id.likeButton);
-        likes.setOnClickListener(new View.OnClickListener() {
+        final ImageButton likeButton = (ImageButton) v.findViewById(R.id.likeButton);
+        likeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                likes.setBackgroundDrawable(getContext().getResources().getDrawable(R.drawable.like_button_selector));
+                likeButton.setBackgroundDrawable(getContext().getResources().getDrawable(R.drawable.like_button_selector));
                 ParseOperations.increment("likes",object);
-                String total=ParseOperations.newTotalLikes(object.getString("objectId"),object.getInt("likes") - object.getInt("dislikes"));
-                likesTextView.setText(total);
+                String likes = ParseOperations.newLikes(object.getString("objectId"), object.getInt("likes"));
+                likesTextView.setText(likes);
             }
         });
 
-        final ImageButton disLikes = (ImageButton) v.findViewById(R.id.dislikeButton);
-        disLikes.setOnClickListener(new View.OnClickListener() {
+        final ImageButton dislikeButton = (ImageButton) v.findViewById(R.id.dislikeButton);
+        dislikeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                disLikes.setBackgroundDrawable(getContext().getResources().getDrawable(R.drawable.dislike_button_selector));
+                dislikeButton.setBackgroundDrawable(getContext().getResources().getDrawable(R.drawable.dislike_button_selector));
                 ParseOperations.increment("dislikes",object);
-                String total=ParseOperations.newTotalLikes(object.getString("objectId"),object.getInt("likes") - object.getInt("dislikes"));
-                likesTextView.setText(total);
+                String dislikes = ParseOperations.newDislikes(object.getString("objectId"), object.getInt("dislikes"));
+                dislikesTextView.setText(dislikes);
             }
         });
 

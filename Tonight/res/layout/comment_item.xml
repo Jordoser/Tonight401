@@ -27,6 +27,19 @@
             android:textColor="#50000000"
             android:gravity="center_horizontal"/>
 
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="6dip"
+            android:background="@drawable/midvote"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/dislikes"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#50000000"
+            android:gravity="center_horizontal"/>
+
         <ImageButton
             android:layout_width="30dip"
             android:layout_height="20dip"
