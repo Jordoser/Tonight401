@@ -4,32 +4,17 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     android:textColor="@drawable/text_selector"
-    android:background="@drawable/list_selector"
+    android:background="@drawable/sublist_selector"
     android:layout_gravity="center">
 
-    <ImageView
-        android:id="@+id/barLogo"
-        android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        />
-
     <TextView
-        android:id="@+id/barText"
+        android:id="@+id/areaText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_margin="10dp"
         android:layout_gravity="center"
         android:text="TextView"
-        />
-
-    <ImageView
-        android:src="@drawable/group_indicator"
-        android:id="@+id/groupIndicator"
-        android:layout_width="20dp"
-        android:layout_height="15dp"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="10dp"
         />
 
 </RelativeLayout>

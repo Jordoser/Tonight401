@@ -1,9 +1,10 @@
-<ListView xmlns:android="http://schemas.android.com/apk/res/android"
+<ExpandableListView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     android:choiceMode="singleChoice"
+    android:groupIndicator="@android:color/transparent"
     android:divider="@android:color/transparent"
     android:dividerHeight="1dp"
     tools:context="com.example.tonight.fragment.DrawerFragment" />

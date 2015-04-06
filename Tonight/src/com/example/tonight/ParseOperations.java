@@ -27,42 +27,53 @@ import java.util.List;
  * Created by Tarek on 2015-02-10.
  */
 public class ParseOperations extends ParseObject {
-    public static ArrayList<ParseObject> listVenues= new ArrayList<ParseObject>();
+    public static ArrayList<ParseObject> listVenues = new ArrayList<ParseObject>();
+    public static ArrayList<Venue> venues;
     public static String venue_name = new String();
     public static String venueInfo = new String();
     public static ArrayList<String> hoursList= new ArrayList<String>();
     public static ArrayList<String> specList= new ArrayList<String>();
-    public static ArrayList<Bitmap> logos = new ArrayList<Bitmap>();
     public static ParseGeoPoint gp = new ParseGeoPoint();
     public static Integer totalLikes, totalDislikes;
 
     public static void getVenues(){
         listVenues = new ArrayList<ParseObject>();
+        venues = new ArrayList<Venue>();
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Venue");
         query.orderByAscending("barName");
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> venueList, ParseException e) {
                 if (e == null) {
                     Log.d("score", "Retrieved " + venueList.size() + " bars");
+                    int count = 0;
                     for (ParseObject venue:venueList) {
                         System.out.println(venue.get("barName").toString());
                         listVenues.add(venue);
+                        Venue newVenue = new Venue();
                         System.out.println("Added Venue");
+
+                        newVenue.setName(venue.get("barName").toString());
+                        newVenue.setID(venue.getObjectId().toString());
+                        newVenue.setArea(venue.get("Area").toString());
+                        newVenue.setAddress(venue.get("Address").toString());
+
+                        venues.add(newVenue);
 
                         ParseFile imgFile = (ParseFile)venue.get("barLogo");
                         if(imgFile != null){
                             try {
                                 byte[] data = imgFile.getData();
                                 Bitmap bMap = BitmapFactory.decodeByteArray(data, 0, data.length);
-                                logos.add(bMap);
+                                venues.get(count).setLogo(bMap);
                             } catch (ParseException e2) {
                                 // TODO Auto-generated catch block
                                 e2.printStackTrace();
                             }
                         }
-                        else{logos.add(null);}
+                        else{venues.get(count).setLogo(null);}
+                        count++;
                     }
-                    VenueListController.setVenueList(listVenues, logos);
+                    VenueListController.setVenueList(listVenues, venues);
                 } else {
                     Log.d("score", "Error: " + e.getMessage());
                 }
@@ -129,8 +140,6 @@ public class ParseOperations extends ParseObject {
                         } else {
                             hoursList.add("Closed");
                         }
-
-
 
                         if (venue.get("SunSpec") != null) {
                             specList.add(venue.get("SunSpec").toString());

@@ -24,6 +24,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +33,7 @@ import com.example.tonight.DrawerAdapter;
 import com.example.tonight.ParseOperations;
 import com.example.tonight.R;
 import com.example.tonight.ScreenName;
+import com.example.tonight.Venue;
 import com.example.tonight.VenueActivity;
 import com.example.tonight.VenueListController;
 import com.parse.ParseFile;
@@ -44,11 +46,6 @@ import java.util.ArrayList;
  * implemented here.
  */
 public class DrawerFragment extends Fragment {
-
-    /**
-     * Remember the position of the selected item.
-     */
-    private static final String STATE_SELECTED_POSITION = "selected_navigation_drawer_position";
 
     /**
      * Per the design guidelines, you should show the drawer on launch until the
@@ -67,17 +64,14 @@ public class DrawerFragment extends Fragment {
     private ActionBarDrawerToggle mDrawerToggle;
 
     private DrawerLayout mDrawerLayout;
-    private ListView mDrawerList;
+    private ExpandableListView mDrawerList;
     private View mFragmentContainerView;
 
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
     private DrawerAdapter mDrawerAdapter;
 
-    private ArrayList<String> mVenueNames;
-    private ArrayList<String> mVenueIds;
-
-    private ArrayList<Bitmap> mLogos;
+    private ArrayList<ArrayList <Venue>> mVenueList;
 
     public DrawerFragment() {
     }
@@ -86,9 +80,6 @@ public class DrawerFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Read in the flag indicating whether or not the user has demonstrated
-        // awareness of the
-        // drawer. See PREF_USER_LEARNED_DRAWER for details.
         SharedPreferences sp = PreferenceManager
                 .getDefaultSharedPreferences(getActivity());
         mUserLearnedDrawer = sp.getBoolean(PREF_USER_LEARNED_DRAWER, false);
@@ -101,60 +92,38 @@ public class DrawerFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        // Indicate that this fragment would like to influence the set of
-        // actions in the action bar.
         setHasOptionsMenu(true);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mDrawerList = (ListView) inflater.inflate(
+        mDrawerList = (ExpandableListView) inflater.inflate(
                 R.layout.fragment_navigation_drawer, container, false);
-        mDrawerList
-                .setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    /*public void onItemClick(AdapterView<?> parent, View view,
-                                            int position, long id) {
-                        *//*if (position == 0) {
-                            images[0] = R.drawable.home_blue;
-                            images[1] = R.drawable.mail_yellow;
-                            images[2] = R.drawable.settings_yellow;
-                        } else if (position == 1) {
-                            images[0] = R.drawable.home_yellow;
-                            images[1] = R.drawable.mail_blue;
-                            images[2] = R.drawable.settings_yellow;
-                        } else if (position == 2) {
-                            images[0] = R.drawable.home_yellow;
-                            images[1] = R.drawable.mail_yellow;
-                            images[2] = R.drawable.settings_blue;
-                        }*//*
-                        selectedPosition[0] = position;
-                        mDrawerAdapter.notifyDataSetChanged();
-                        selectItem(position);
-                    }*/
-                    public void onItemClick(AdapterView parent, View view, int position, long id) {
-                        final int pos = position;
-                        ParseOperations.getName(mVenueIds.get(pos));
 
-                        Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            public void run() {
-                                Intent intent = new Intent(getActivity(), VenueActivity.class);
-                                intent.putExtra("venue_id", mVenueIds.get(pos));
-                                startActivity(intent);
-                                getActivity().overridePendingTransition(R.anim.left_slide_in, R.anim.right_slide_out);
-                            }
-                        }, 750);
+        mDrawerList.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener(){
+            public boolean onGroupClick(ExpandableListView parent, View v, final int groupPosition, long id) {
+                if(mVenueList.get(groupPosition).size() == 1) {
+                    ParseOperations.getName(mVenueList.get(groupPosition).get(0).getID());
 
-                    }
-                });
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        public void run() {
+                            Intent intent = new Intent(getActivity(), VenueActivity.class);
+                            intent.putExtra("venue_id", mVenueList.get(groupPosition).get(0).getID());
+                            startActivity(intent);
+                            getActivity().overridePendingTransition(R.anim.left_slide_in, R.anim.right_slide_out);
+                        }
+                    }, 750);
+                    return true;
+                }
+                else{ return false; }
+            }
+        });
 
-        mVenueNames = VenueListController.returnVenues();
-        mVenueIds = VenueListController.returnVenueIds();
-        mLogos = (VenueListController.getVenueLogos());
+        mVenueList = VenueListController.returnVenues();
 
-        mDrawerAdapter = new DrawerAdapter(getActivity(), mVenueNames, mLogos);
+        mDrawerAdapter = new DrawerAdapter(getActivity(), mVenueList);
         mDrawerList.setAdapter(mDrawerAdapter);
         return mDrawerList;
     }
@@ -181,11 +150,6 @@ public class DrawerFragment extends Fragment {
         // opens
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,
                 GravityCompat.START);
-        // set up the drawer's list view with items and click listener
-
-        //ActionBar actionBar = getActionBar();
-        //actionBar.setDisplayHomeAsUpEnabled(true);
-        //actionBar.setHomeButtonEnabled(true);
 
         // ActionBarDrawerToggle ties together the the proper interactions
         // between the navigation drawer and the action bar app icon.
@@ -314,9 +278,6 @@ public class DrawerFragment extends Fragment {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
-//        else if(item.getItemId()==(R.id.userName)){
-//            ScreenName.alert(getActivity());
-//        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -333,24 +294,16 @@ public class DrawerFragment extends Fragment {
 
     public void updateDrawer() {
         System.out.println("Updated Drawer");
-        mLogos.clear();
-        mLogos.addAll(VenueListController.getVenueLogos());
-        mVenueNames.clear();
-        mVenueNames.addAll(VenueListController.returnVenues());
-        mVenueIds.clear();
-        mVenueIds.addAll(VenueListController.returnVenueIds());
+        mVenueList.clear();
+        mVenueList.addAll(VenueListController.returnVenues());
         mDrawerAdapter.notifyDataSetChanged();
         mDrawerList.invalidate();
     }
 
     public void updateDrawer(String area) {
         System.out.println("Updated Drawer from Area");
-        mLogos.clear();
-        mLogos.addAll(VenueListController.getVenueLogos(area));
-        mVenueNames.clear();
-        mVenueNames.addAll(VenueListController.returnVenues(area));
-        mVenueIds.clear();
-        mVenueIds.addAll(VenueListController.returnVenueIds(area));
+        mVenueList.clear();
+        mVenueList.addAll(VenueListController.returnVenuesArea(area));
         mDrawerAdapter.notifyDataSetChanged();
         mDrawerList.invalidate();
     }
