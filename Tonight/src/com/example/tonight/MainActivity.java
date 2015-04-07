@@ -160,7 +160,7 @@ public class MainActivity extends FragmentActivity implements
     protected void onResume() {
         super.onResume();
         actionBar.setSelectedNavigationItem(0);
-        mRunning = true;
+        mRunning = false;
         // start first run by hand
         mHandler.post(mUpdater);
     }
@@ -168,6 +168,6 @@ public class MainActivity extends FragmentActivity implements
     @Override
     protected void onPause() {
         super.onPause();
-        mRunning= false;
+        mRunning = false;
     }
 }
