@@ -124,6 +124,12 @@ public class DrawerAdapter extends BaseExpandableListAdapter {
                 drawable.setState(GROUP_STATE_SETS[stateSetIndex]);
             }
         }
+        if(isExpanded) {
+            convertView.setBackgroundColor(context.getResources().getColor(R.color.pink));
+        }
+        else {
+            convertView.setBackgroundColor(context.getResources().getColor(R.color.white));
+        }
 
         return convertView;
     }
@@ -154,7 +160,7 @@ public class DrawerAdapter extends BaseExpandableListAdapter {
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
-        return false;
+        return true;
     }
 
     private class ViewHolder {

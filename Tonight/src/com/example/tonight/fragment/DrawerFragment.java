@@ -25,6 +25,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ExpandableListView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -106,6 +107,9 @@ public class DrawerFragment extends Fragment {
                 if(mVenueList.get(groupPosition).size() == 1) {
                     ParseOperations.getName(mVenueList.get(groupPosition).get(0).getID());
 
+                    //LinearLayout layout = (LinearLayout) v;
+                    v.setBackgroundColor(getResources().getColor(R.color.pink));
+
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         public void run() {
@@ -121,6 +125,25 @@ public class DrawerFragment extends Fragment {
             }
         });
 
+        mDrawerList.setOnChildClickListener(new ExpandableListView.OnChildClickListener(){
+            public boolean onChildClick(ExpandableListView parent, View v, final int gPosition, final int cPosition, long id){
+                ParseOperations.getName(mVenueList.get(gPosition).get(cPosition).getID());
+
+                v.setBackgroundColor(getResources().getColor(R.color.pink));
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        Intent intent = new Intent(getActivity(), VenueActivity.class);
+                        intent.putExtra("venue_id", mVenueList.get(gPosition).get(cPosition).getID());
+                        startActivity(intent);
+                        getActivity().overridePendingTransition(R.anim.left_slide_in, R.anim.right_slide_out);
+                    }
+                }, 750);
+                return true;
+            }
+        });
+
         mVenueList = VenueListController.returnVenues();
 
         mDrawerAdapter = new DrawerAdapter(getActivity(), mVenueList);
@@ -133,15 +156,6 @@ public class DrawerFragment extends Fragment {
                 && mDrawerLayout.isDrawerOpen(mFragmentContainerView);
     }
 
-    /**
-     * Users of this fragment must call this method to set up the navigation
-     * drawer interactions.
-     *
-     * @param fragmentId
-     *            The android:id of this fragment in its activity's layout.
-     * @param drawerLayout
-     *            The DrawerLayout containing this fragment's UI.
-     */
     public void setUp(int fragmentId, DrawerLayout drawerLayout) {
         mFragmentContainerView = getActivity().findViewById(fragmentId);
         mDrawerLayout = drawerLayout;

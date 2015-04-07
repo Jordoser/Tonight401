@@ -5,6 +5,6 @@
     android:background="@color/white"
     android:choiceMode="singleChoice"
     android:groupIndicator="@android:color/transparent"
-    android:divider="@android:color/transparent"
+    android:divider="#dddddd"
     android:dividerHeight="1dp"
     tools:context="com.example.tonight.fragment.DrawerFragment" />
