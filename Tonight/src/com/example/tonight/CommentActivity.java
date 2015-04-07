@@ -52,8 +52,7 @@ public class CommentActivity extends Activity {
     private TextView screenName;
     private FileObserver observer;
     private int dist;
-    private int DEFAULT_WIDTH = 640;
-    private int DEFAULT_HEIGHT = 480;
+    private int PIC_WIDTH = 640;
     private int MEDIA_TYPE;
 
     @Override
@@ -264,11 +263,16 @@ public class CommentActivity extends Activity {
     public ParseFile prepareForParse() {
         String path = Environment.getExternalStorageDirectory().getAbsolutePath();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        ParseFile parseFile = null;
 
         if (MEDIA_TYPE == 1) {
             Bitmap bitmap = BitmapFactory.decodeFile(path + "/photo.jpg");
-            bitmap = Bitmap.createScaledBitmap(bitmap, DEFAULT_WIDTH, DEFAULT_HEIGHT, true);
+            int picWidth = bitmap.getWidth();
+            int picHeight = bitmap.getHeight();
+            if (picWidth > PIC_WIDTH){
+                picHeight = (picHeight * PIC_WIDTH)/picWidth;
+                picWidth = PIC_WIDTH;
+            }
+            bitmap = Bitmap.createScaledBitmap(bitmap, picWidth, picHeight, true);
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         } else if (MEDIA_TYPE == 2) {
 
