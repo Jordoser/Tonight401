@@ -89,6 +89,8 @@ public class CommentActivity extends Activity {
             @Override
             public void onClick(View view) {
                 String str = editText.getText().toString();
+                postButton.setClickable(false);
+                postButton.setBackgroundColor(getResources().getColor(R.color.gray));
                 postMessage(str);
                 Toast.makeText(getApplicationContext(), "Comment Posted!",
                         Toast.LENGTH_LONG).show();
