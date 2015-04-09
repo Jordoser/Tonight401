@@ -9,12 +9,20 @@ import com.parse.ParseObject;
 import java.util.ArrayList;
 
 /**
- * Created by junker4ce on 15-02-12.
+ * This class holds all the venues as well as the venue ParseObjects once the MainActivity has been
+ * completely loaded.
+ *
+ * @author Group 8: CMPUT 401
  */
 public class VenueListController {
     public static ArrayList<ParseObject> venueInfoList;
     public static ArrayList<Venue> venueList;
 
+    /**
+     *
+     * @param vInfoList
+     * @param vList
+     */
     public static void setVenueList(ArrayList<ParseObject> vInfoList, ArrayList<Venue> vList){
         if(venueList != null){venueList.clear();}
         venueInfoList = vInfoList;
@@ -22,10 +30,12 @@ public class VenueListController {
         System.out.println(venueList.size());
     }
 
-    public static ArrayList<ParseObject> getVenueList(){
-        return venueInfoList;
-    }
-
+    /**
+     * Returns the list of venues, organized in parents and children so that the drawer can
+     * properly display them.
+     *
+     * @return The formatted list of Venues
+     */
     public static ArrayList<ArrayList <Venue>> returnVenues() {
         //returns the list of all venues from the specified area
         ArrayList<ArrayList <Venue>> venues = new ArrayList<ArrayList <Venue>>();
@@ -47,6 +57,13 @@ public class VenueListController {
         return venues;
     }
 
+    /**
+     * Returns the list of venues, organized in parents and children so that the drawer can
+     * properly display them for the specified Area.
+     *
+     * @param area  The area to retrieve the Venues from
+     * @return      The formatted list of Venues for the area
+     */
     public static ArrayList<ArrayList <Venue>> returnVenuesArea(String area) {
         //returns the list of all venues from the specified area
         ArrayList<ArrayList <Venue>> venues = new ArrayList<ArrayList <Venue>>();
@@ -69,6 +86,11 @@ public class VenueListController {
         return venues;
     }
 
+    /**
+     * Returns the list of IDs for each Venue in alphabetical order
+     *
+     * @return the list of IDs for the venue
+     */
     public static ArrayList<String> returnVenueIds() {
         ArrayList<String> venueIds = new ArrayList<String>();
         if (venueList != null) {
@@ -79,6 +101,12 @@ public class VenueListController {
         return venueIds;
     }
 
+    /**
+     * Returns the list of IDs for each Venue in the area in alphabetical order
+     *
+     * @param area  The area to retrieve the Venue IDs from
+     * @return      The list of IDs for the venue
+     */
     public static ArrayList<String> returnVenueIds(String area) {
         ArrayList<String> venueIds = new ArrayList<String>();
         if(venueList != null) {
@@ -91,6 +119,12 @@ public class VenueListController {
         return venueIds;
     }
 
+    /**
+     * Returns the venue name for the specified Venue ID
+     *
+     * @param venueID   The ID of the venue to want to retrieve the name of
+     * @return          The name of the Venue
+     */
     public static String getVenueName(String venueID){
         String venueName = null;
         for(ParseObject venue : venueInfoList){

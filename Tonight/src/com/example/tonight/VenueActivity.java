@@ -22,9 +22,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 
-/**
- * Created by junker4ce on 15-02-12.
- */
 public class VenueActivity extends Activity {
     private ArrayList<CharSequence> spinnerArray;
     private Spinner spinner;

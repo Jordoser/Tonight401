@@ -15,13 +15,31 @@ import com.example.tonight.R;
 import com.example.tonight.VenueListController;
 
 /**
- * Created by junker4ce on 15-02-11.
+ * This class displays the fragment with all of the comments from
+ * all from the South End area on the MainActivity
+ *
+ * @author Group 8: CMPUT 401
  */
 public class SouthFragment extends Fragment {
     private ListView listview;
     private SwipeRefreshLayout swipeLayout;
     MainCommentsAdapter adapter;
 
+    /**
+     * This function sets up the fragment for display and sets up
+     * the adapter for displaying the comments. It also sets up the
+     * ability to allow swipe refreshing of comments.
+     *
+     * @param  inflater             The LayoutInflater object that can be used to inflate any
+     *                              views in the fragment,
+     * @param  container            If non-null, this is the parent view that the fragment's
+     *                              UI should be attached to. The fragment should not add the view
+     *                              itself, but this can be used to generate the LayoutParams
+     *                              of the view.
+     * @param  savedInstanceState   If non-null, this fragment is being re-constructed from a
+     *                              previous saved state as given here.
+     * @return                      Return the View for the fragment's UI, or null.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
