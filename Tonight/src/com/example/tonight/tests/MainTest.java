@@ -1,6 +1,10 @@
 package com.example.tonight.tests;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.suitebuilder.annotation.SmallTest;
+import android.widget.Button;
+import android.widget.ImageButton;
+
+import com.example.tonight.R;
 
 import com.example.tonight.MainActivity;
 
